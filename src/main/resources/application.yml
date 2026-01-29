@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: ms-products
+    version: 1.0.0
+
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    name: h2-test
+    password:
+    url: jdbc:h2:mem:h2-test
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: 6379
+      password: ${REDIS_PASSWORD}
+      timeout: 2000ms #Time out de conexion para evitar que si redis cae nosotros tambien
+
+server:
+  port: 8082
+
+application:
+  security:
+    jwt:
+      secret-key: ${SECRET_KEY}

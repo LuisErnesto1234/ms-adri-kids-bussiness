@@ -34,8 +34,8 @@ public class IncrementProductVariantStockUseCaseTransactional {
     @Retryable(retryFor = {ObjectOptimisticLockingFailureException.class, OptimisticLockingFailureException.class},
     maxAttempts = 3,
     backoff = @Backoff(delay = 200))
-    public ProductVariant incrementProductVariantStock(IncrementStockProductVariantCommand command){
-        return incrementProductVariantStockUseCase.incrementProductVariantStock(command);
+    public void incrementProductVariantStock(IncrementStockProductVariantCommand command){
+        incrementProductVariantStockUseCase.incrementProductVariantStock(command);
     }
 
     @Recover

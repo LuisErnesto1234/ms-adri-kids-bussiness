@@ -46,20 +46,16 @@ public class ProductVariantController {
     }
 
     @PatchMapping(value = "/{id}/increment-stock/{quantity}")
-    public ResponseEntity<ApiResponse<ProductVariantResponse>> incrementStockProductVariant(@PathVariable UUID id, 
+    public ResponseEntity<ApiResponse<Void>> incrementStockProductVariant(@PathVariable UUID id,
                                                                                             @PathVariable Integer quantity) {
         var command = new IncrementStockProductVariantCommand(id, quantity);
         
-        var domain = incrementProductVariantStockUseCase.incrementProductVariantStock(command);
-        
-        var response = productVariantRestMapper.toResponse(domain);
+        incrementProductVariantStockUseCase.incrementProductVariantStock(command);
 
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.<ProductVariantResponse>builder()
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.<Void>builder()
                 .code(ConstantUtil.OK_CODE_HTTP)
-                .data(response)
                 .message(ConstantUtil.UPDATE_MESSAGE)
                 .timeStamp(Instant.now())
                 .build());
-    
     }
 }

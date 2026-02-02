@@ -4,16 +4,18 @@ spring:
     version: 1.0.0
 
   jpa:
-    database: h2
+    database: postgresql
     hibernate:
       ddl-auto: update
     show-sql: true
 
   datasource:
-    driver-class-name: org.h2.Driver
-    name: h2-test
-    password:
-    url: jdbc:h2:mem:h2-test
+    driver-class-name: org.postgresql.Driver
+    name: ${POSTGRES_DB_NAME}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB_NAME}
+
 
   data:
     redis:
@@ -21,6 +23,10 @@ spring:
       port: 6379
       password: ${REDIS_PASSWORD}
       timeout: 2000ms #Time out de conexion para evitar que si redis cae nosotros tambien
+      username: ${REDIS_USERNAME}
+
+  aop:
+    auto: true
 
 server:
   port: 8082

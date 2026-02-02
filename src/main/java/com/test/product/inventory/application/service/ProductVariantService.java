@@ -86,12 +86,13 @@ public class ProductVariantService implements CreateProductVariantUseCase, Incre
     }
 
     @Override
-    public ProductVariant incrementProductVariantStock(IncrementStockProductVariantCommand command) {
+    public void incrementProductVariantStock(IncrementStockProductVariantCommand command) {
         try {
             ProductVariant productVariantFind = productVariantRepositoryPort.findById(command.productVariantId())
                     .orElseThrow(() -> new NotFoundException("El producto no fue encontrado, para su incremento de stock"));
 
-            return productVariantFind.increaseStock(command.quantity());
+            productVariantFind.increaseStock(command.quantity());
+
         } catch (ObjectOptimisticLockingFailureException e){
             throw new NotFoundException("El stock fue modificado por otro usuario mientras comprabas. Por favor, intenta de nuevo.", e);
         }

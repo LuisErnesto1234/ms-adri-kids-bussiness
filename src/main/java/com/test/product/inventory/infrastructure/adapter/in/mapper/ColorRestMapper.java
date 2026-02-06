@@ -1,7 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter.in.mapper;
 
 import com.test.product.inventory.domain.model.Color;
-import com.test.product.inventory.domain.port.in.command.color.CreateColorCommand;
+import com.test.product.inventory.application.usecases.createcolor.CreateColorCommand;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.ColorRequest;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.ColorResponse;
 import org.mapstruct.Mapper;

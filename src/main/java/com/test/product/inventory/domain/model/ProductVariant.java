@@ -32,7 +32,8 @@ public record ProductVariant(UUID id, UUID productId, UUID colorId, UUID sizeId,
         Integer newStockValue = stockQuantity + quantityRequested;
         Instant updatedDate = Instant.now();
 
-        return new ProductVariant(id, productId, colorId, sizeId, sku, newStockValue, priceAdjustment, imageUrl, createdAt, updatedDate, status);
+        return new ProductVariant(id, productId, colorId, sizeId, sku, newStockValue,
+                priceAdjustment, imageUrl, createdAt, updatedDate, status);
     }
 
     public static ProductVariant createdProductVariant(UUID productId, UUID colorId, UUID sizeId, String sku, Integer stockQuantity,

@@ -1,6 +1,6 @@
 package com.test.product.inventory.infrastructure.adapter.in.api;
 
-import com.test.product.inventory.domain.port.in.command.product_variant.IncrementStockProductVariantCommand;
+import com.test.product.inventory.application.usecases.incrementstockproductvariant.IncrementStockProductVariantCommand;
 import com.test.product.inventory.domain.port.in.product_variant_use_case.CreateProductVariantUseCase;
 import com.test.product.inventory.domain.port.in.product_variant_use_case.IncrementProductVariantStockUseCase;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.ProductVariantRequest;

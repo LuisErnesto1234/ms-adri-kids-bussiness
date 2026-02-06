@@ -3,6 +3,9 @@ package com.test.product.customers.controller;
 import com.test.product.customers.dto.reponse.ApiResponse;
 import com.test.product.customers.dto.reponse.AuthResponse;
 import com.test.product.customers.dto.request.LoginRequest;
+import com.test.product.customers.dto.request.RefreshTokenRequest;
+import com.test.product.customers.security.JwtService;
+import com.test.product.customers.security.RefreshTokenService;
 import com.test.product.customers.service.AuthService;
 import com.test.product.customers.utils.ConstantUtil;
 
@@ -10,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -35,9 +40,10 @@ public class AuthController {
     }
 
     @PostMapping(value = "/logout")
-    public ResponseEntity<ApiResponse<Void>> logout(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String authHeader) {
+    public ResponseEntity<ApiResponse<Void>> logout(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String authHeader,
+                                                    @RequestBody RefreshTokenRequest refreshTokenRequest) {
 
-        authService.logout(authHeader);
+        authService.logout(authHeader, refreshTokenRequest.refreshToken());
 
         return ResponseEntity.ok(ApiResponse.<Void>builder()
                 .code(ConstantUtil.OK_CODE_HTTP)
@@ -45,4 +51,17 @@ public class AuthController {
                 .timeStamp(Instant.now())
                 .build());
     }
+
+    @PostMapping(value = "/refresh-token")
+    public ResponseEntity<ApiResponse<AuthResponse>> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        var response = authService.generateRefreshToken(refreshTokenRequest);
+
+        return ResponseEntity.ok(ApiResponse.<AuthResponse>builder()
+                .data(response)
+                .code(ConstantUtil.OK_CODE_HTTP)
+                .message("Refresh token generado exitosamente")
+                .timeStamp(Instant.now())
+                .build());
+    }
+
 }

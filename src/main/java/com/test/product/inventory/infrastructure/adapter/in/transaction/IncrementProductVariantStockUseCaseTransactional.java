@@ -1,8 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter.in.transaction;
 
 import com.test.product.inventory.domain.exception.NotFoundException;
-import com.test.product.inventory.domain.model.ProductVariant;
-import com.test.product.inventory.domain.port.in.command.product_variant.IncrementStockProductVariantCommand;
+import com.test.product.inventory.application.usecases.incrementstockproductvariant.IncrementStockProductVariantCommand;
 import com.test.product.inventory.domain.port.in.product_variant_use_case.IncrementProductVariantStockUseCase;
 
 import org.springframework.context.annotation.Primary;

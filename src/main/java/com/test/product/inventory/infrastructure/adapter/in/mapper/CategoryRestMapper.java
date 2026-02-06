@@ -1,7 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter.in.mapper;
 
 import com.test.product.inventory.domain.model.Category;
-import com.test.product.inventory.domain.port.in.command.category.CreateCategoryCommand;
+import com.test.product.inventory.application.usecases.createcategory.CreateCategoryCommand;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.CategoryRequest;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.CategoryResponse;
 import org.mapstruct.Mapper;

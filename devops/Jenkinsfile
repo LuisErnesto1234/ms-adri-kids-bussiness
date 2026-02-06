@@ -1,0 +1,50 @@
+pipeline {
+	agent any
+
+	stages {
+		stage('Preparación') {
+			steps {
+				echo 'Iniciando...'
+				sh 'sleep 1'
+			}
+		}
+
+		stage('Build') {
+			steps {
+				echo 'Compilando...'
+				sh 'sleep 1'
+			}
+		}
+
+		stage('Test') {
+			steps {
+				echo 'Ejecutando tests unitarios...'
+
+				// AQUÍ ESTÁ EL SABOTAJE
+				// 'exit 1' es el código universal en Linux para decir "Algo salió mal".
+				// Jenkins detecta cualquier código de salida distinto de 0 como un error.
+				sh 'echo "¡Oh no! Un test crítico ha fallado."'
+				sh 'exit 1'
+			}
+		}
+
+		stage('Deploy') {
+			steps {
+				// Esta etapa NUNCA debería ejecutarse
+				echo 'Desplegando a producción...'
+			}
+		}
+	}
+
+	// Este bloque maneja lo que pasa después de que el pipeline termina (bien o mal)
+	post {
+		failure {
+			echo '========================================='
+			echo 'ALERTA: El pipeline falló. Enviando email al jefe...'
+			echo '========================================='
+		}
+		success {
+			echo 'Todo salió perfecto.'
+		}
+	}
+}

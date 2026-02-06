@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +27,13 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public PermissionResponse createPermission(PermissionRequest request) {
         return permissionRestMapper.toResponse(permissionJpaRepository.save(permissionRestMapper.toEntity(request)));
+    }
+
+    @Transactional(rollbackFor = RuntimeException.class, timeout = 1000, readOnly = true)
+    @Override
+    public Set<PermissionResponse> findAllPermission() {
+        return permissionJpaRepository.findAll().stream()
+                .map(permissionRestMapper::toResponse)
+                .collect(Collectors.toSet());
     }
 }

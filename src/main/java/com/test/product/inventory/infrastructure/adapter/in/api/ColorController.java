@@ -1,13 +1,17 @@
 package com.test.product.inventory.infrastructure.adapter.in.api;
 
-import com.test.product.inventory.domain.port.in.color_use_case.CreateColorUseCase;
+import an.awesome.pipelinr.Pipeline;
+
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.ColorRequest;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.ColorResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.ColorRestMapper;
 import com.test.product.inventory.infrastructure.utils.ApiResponse;
 import com.test.product.inventory.infrastructure.utils.ConstantUtil;
+
 import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +26,14 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class ColorController {
 
-    private final CreateColorUseCase createColorUseCase;
+    private final Pipeline pipeline;
     private final ColorRestMapper colorRestMapper;
 
     @PostMapping(value = "/create")
     public ResponseEntity<ApiResponse<ColorResponse>> createColor(@Valid @RequestBody ColorRequest request){
-        var command = colorRestMapper.toCommand(request);
+        var command = request.toCommand();
 
-        var domain = createColorUseCase.createColor(command);
+        var domain = command.execute(pipeline);
 
         var response = colorRestMapper.toResponse(domain);
 

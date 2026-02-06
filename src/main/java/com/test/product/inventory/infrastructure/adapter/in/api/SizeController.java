@@ -1,6 +1,6 @@
 package com.test.product.inventory.infrastructure.adapter.in.api;
 
-import com.test.product.inventory.domain.port.in.size.CreateSizeUseCase;
+import an.awesome.pipelinr.Pipeline;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.SizeRequest;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.SizeResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.SizeRestMapper;
@@ -25,14 +25,14 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class SizeController {
 
-    private final CreateSizeUseCase createSizeUseCase;
+    private final Pipeline pipeline;
     private final SizeRestMapper sizeRestMapper;
 
     @PostMapping(value = "/create")
     public ResponseEntity<ApiResponse<SizeResponse>> createSize(@Valid @RequestBody SizeRequest request){
-        var command = sizeRestMapper.toCommand(request);
+        var command = request.toCommand();
 
-        var domain = createSizeUseCase.createSize(command);
+        var domain = command.execute(pipeline);
 
         var response = sizeRestMapper.toResponse(domain);
 

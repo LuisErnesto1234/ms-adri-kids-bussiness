@@ -3,6 +3,7 @@ package com.test.product.customers.entity;
 import com.test.product.customers.dto.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,6 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class RoleEntity {
 
     @Id
@@ -44,5 +46,6 @@ public class RoleEntity {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
+    @Builder.Default
+    private Status status = Status.ACTIVE;
 }

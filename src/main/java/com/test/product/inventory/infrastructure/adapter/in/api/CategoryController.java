@@ -1,7 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter.in.api;
 
-import com.test.product.inventory.domain.port.in.category_use_case.CreateCategoryUseCase;
-import com.test.product.inventory.domain.port.in.command.category.CreateCategoryCommand;
+import an.awesome.pipelinr.Pipeline;
+
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.CategoryRequest;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.CategoryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.CategoryRestMapper;
@@ -26,21 +26,22 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final CreateCategoryUseCase createCategoryUseCase;
+    private final Pipeline pipeline;
     private final CategoryRestMapper categoryRestMapper;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<ApiResponse<CategoryResponse>> createCategory(@Valid @RequestBody CategoryRequest request) {
+    public ResponseEntity<ApiResponse<CategoryResponse>> createCategory(
+            @Valid @RequestBody CategoryRequest request) {
 
-        CreateCategoryCommand command = categoryRestMapper.toCommand(request);
+        var command = request.toCommand();
 
-        var category = createCategoryUseCase.createCategory(command);
+        var responseDomain = command.execute(pipeline);
 
-        var categoryResponse = categoryRestMapper.toResponse(category);
+        var response = categoryRestMapper.toResponse(responseDomain);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.<CategoryResponse>builder()
                 .code(ConstantUtil.CREATED_CODE_HTTP)
-                .data(categoryResponse)
+                .data(response)
                 .message(ConstantUtil.CREATED_MESSAGE)
                 .timeStamp(Instant.now())
                 .build());

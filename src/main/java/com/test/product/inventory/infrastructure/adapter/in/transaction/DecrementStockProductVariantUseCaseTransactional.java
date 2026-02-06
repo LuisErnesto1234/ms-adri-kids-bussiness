@@ -2,7 +2,7 @@ package com.test.product.inventory.infrastructure.adapter.in.transaction;
 
 import com.test.product.inventory.domain.exception.NotFoundException;
 import com.test.product.inventory.domain.model.ProductVariant;
-import com.test.product.inventory.domain.port.in.command.product_variant.DecrementStockProductVariantCommand;
+import com.test.product.inventory.application.usecases.decrementproductvariantstock.DecrementStockProductVariantCommand;
 import com.test.product.inventory.domain.port.in.product_variant_use_case.DecrementStockProductVariantUseCase;
 
 import lombok.RequiredArgsConstructor;

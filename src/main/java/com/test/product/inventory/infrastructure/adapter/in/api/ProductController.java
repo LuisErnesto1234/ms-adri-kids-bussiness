@@ -1,7 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter.in.api;
 
-import com.test.product.inventory.domain.port.in.product_use_case.CreateProductUseCase;
-import com.test.product.inventory.infrastructure.adapter.in.dto.request.ProductRequest;
+import an.awesome.pipelinr.Pipeline;
+import com.test.product.inventory.infrastructure.adapter.in.dto.request.CreateProductRequest;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.ProductRestMapper;
 import com.test.product.inventory.infrastructure.utils.ApiResponse;
@@ -24,17 +24,17 @@ import java.time.Instant;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final CreateProductUseCase createProductUseCase;
+    private final Pipeline pipeline;
     private final ProductRestMapper productRestMapper;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<ApiResponse<ProductResponse>> createProduct(@Valid @RequestBody ProductRequest request) {
+    public ResponseEntity<ApiResponse<ProductResponse>> createProduct(@Valid @RequestBody CreateProductRequest request) {
 
-        var command = productRestMapper.toCommand(request);
+        var command = request.toCommand();
 
-        var product = createProductUseCase.createProduct(command);
+        var domainResponse = command.execute(pipeline);
 
-        var response = productRestMapper.toResponse(product);
+        var response = productRestMapper.toResponse(domainResponse);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.<ProductResponse>builder()
                 .data(response)

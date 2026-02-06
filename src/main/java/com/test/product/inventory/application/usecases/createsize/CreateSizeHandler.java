@@ -1,0 +1,24 @@
+package com.test.product.inventory.application.usecases.createsize;
+
+import an.awesome.pipelinr.Command;
+import com.test.product.inventory.domain.model.Size;
+import com.test.product.inventory.domain.port.out.SizeRepositoryPort;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+@Component
+@RequiredArgsConstructor
+public class CreateSizeHandler implements Command.Handler<CreateSizeCommand, Size> {
+
+    private final SizeRepositoryPort repositoryPort;
+
+    @Transactional
+    @Override
+    public Size handle(CreateSizeCommand command) {
+        Size size = Size.createSize(command.name(), command.type(),
+                command.sortOrder(), command.status());
+
+        return repositoryPort.save(size);
+    }
+}

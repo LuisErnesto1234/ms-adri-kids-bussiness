@@ -8,8 +8,14 @@ import com.test.product.inventory.domain.port.out.ProductVariantRepositoryPort;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -17,6 +23,10 @@ public class DecrementStockProductVariantHandler implements Command.Handler<Decr
 
     private final ProductVariantRepositoryPort productVariantRepositoryPort;
 
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW, timeout = 5)
+    @Retryable(retryFor = {ObjectOptimisticLockingFailureException.class, OptimisticLockingFailureException.class},
+            maxAttempts = 3,
+            backoff = @Backoff(delay = 200))
     @Override
     public ProductVariant handle(DecrementStockProductVariantCommand command) {
         try {
@@ -29,5 +39,10 @@ public class DecrementStockProductVariantHandler implements Command.Handler<Decr
         } catch (ObjectOptimisticLockingFailureException e){
             throw new NotFoundException("El stock ha sido modificado por otro usuario mientras comprabas. Por favor, intenta de nuevo");
         }
+    }
+
+    @Recover
+    public ProductVariant recover(ObjectOptimisticLockingFailureException e, DecrementStockProductVariantCommand command){
+        throw new NotFoundException("El sistema está muy ocupado, no pudimos actualizar el stock tras varios intentos.", e);
     }
 }

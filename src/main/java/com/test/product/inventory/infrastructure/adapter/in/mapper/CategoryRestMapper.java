@@ -3,7 +3,7 @@ package com.test.product.inventory.infrastructure.adapter.in.mapper;
 import com.test.product.inventory.domain.model.Category;
 import com.test.product.inventory.application.usecases.createcategory.CreateCategoryCommand;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.CategoryRequest;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.CategoryResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.CategorySummaryResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
@@ -12,6 +12,6 @@ public interface CategoryRestMapper {
 
     CreateCategoryCommand toCommand(CategoryRequest request);
 
-    CategoryResponse toResponse(Category category);
+    CategorySummaryResponse toResponse(Category category);
 
 }

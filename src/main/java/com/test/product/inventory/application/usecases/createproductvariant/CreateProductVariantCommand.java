@@ -2,7 +2,6 @@ package com.test.product.inventory.application.usecases.createproductvariant;
 
 import an.awesome.pipelinr.Command;
 import com.test.product.inventory.domain.enums.Status;
-import com.test.product.inventory.domain.model.ProductVariant;
 import com.test.product.inventory.domain.model.details.ProductVariantDetails;
 
 import java.math.BigDecimal;

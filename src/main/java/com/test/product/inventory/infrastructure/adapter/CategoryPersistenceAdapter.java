@@ -5,7 +5,10 @@ import com.test.product.inventory.domain.port.out.CategoryRepositoryPort;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.CategoryEntity;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.mapper.CategoryEntityMapper;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.repository.CategoryJpaRepository;
+import com.test.product.shared.domain.PagedResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -33,5 +36,11 @@ public class CategoryPersistenceAdapter implements CategoryRepositoryPort {
     @Override
     public Optional<Category> findByName(String name) {
         return categoryJpaRepository.findByName(name).map(categoryEntityMapper::toDomain);
+    }
+
+    @Override
+    public Page<Category> findAll(Pageable pageable) {
+        return categoryJpaRepository.findAll(pageable)
+                .map(categoryEntityMapper::toDomain);
     }
 }

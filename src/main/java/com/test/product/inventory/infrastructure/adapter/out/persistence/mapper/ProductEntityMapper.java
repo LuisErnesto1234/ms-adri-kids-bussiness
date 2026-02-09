@@ -1,6 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter.out.persistence.mapper;
 
 import com.test.product.inventory.domain.model.Product;
+import com.test.product.inventory.domain.model.details.ProductDetails;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.CategoryEntity;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.ProductEntity;
 import org.mapstruct.Mapper;
@@ -26,4 +27,9 @@ public interface ProductEntityMapper {
         categoryEntity.setId(categoryId);
         return categoryEntity;
     }
+
+    @Mapping(source = "category", target = "category")
+    ProductDetails toDetails(ProductEntity entity);
+
+
 }

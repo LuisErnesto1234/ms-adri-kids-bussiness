@@ -6,6 +6,8 @@ import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.
 import com.test.product.inventory.infrastructure.adapter.out.persistence.mapper.ColorEntityMapper;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.repository.ColorJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -39,5 +41,10 @@ public class ColorPersistenceAdapter implements ColorRepositoryPort {
     @Override
     public void deleteById(UUID id) {
         colorJpaRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Color> findAll(Pageable pageable) {
+        return colorJpaRepository.findAll(pageable).map(colorEntityMapper::toDomain);
     }
 }

@@ -6,6 +6,8 @@ import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.
 import com.test.product.inventory.infrastructure.adapter.out.persistence.mapper.SizeEntityMapper;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.repository.SizeJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -32,5 +34,13 @@ public class SizePersistenceAdapter implements SizeRepositoryPort {
     @Override
     public Boolean existById(UUID id) {
         return sizeJpaRepository.existsById(id);
+    }
+
+    @Override
+    public Page<Size> findAll(Pageable pageable) {
+
+        var sizeEntityPage = sizeJpaRepository.findAll(pageable);
+
+        return sizeEntityPage.map(sizeEntityMapper::toDomain);
     }
 }

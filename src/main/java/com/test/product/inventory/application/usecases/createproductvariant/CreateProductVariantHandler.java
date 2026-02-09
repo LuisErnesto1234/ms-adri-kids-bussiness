@@ -15,7 +15,10 @@ import lombok.RequiredArgsConstructor;
 
 import an.awesome.pipelinr.Command;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
@@ -28,6 +31,8 @@ public class CreateProductVariantHandler implements Command.Handler<CreateProduc
     private final ColorRepositoryPort colorRepositoryPort;
     private final SizeRepositoryPort sizeRepositoryPort;
 
+    @Transactional(rollbackFor =  Exception.class, timeout = 10, propagation = Propagation.REQUIRES_NEW)
+    @CacheEvict(value = "product_variant_page", allEntries = true)
     @Override
     public ProductVariantDetails handle(CreateProductVariantCommand command) {
         Product productFind = productRepositoryPort.findById(command.productId())

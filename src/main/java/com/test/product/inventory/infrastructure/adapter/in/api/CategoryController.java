@@ -3,7 +3,7 @@ package com.test.product.inventory.infrastructure.adapter.in.api;
 import an.awesome.pipelinr.Pipeline;
 
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.CategoryRequest;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.CategoryResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.CategorySummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.CategoryRestMapper;
 import com.test.product.inventory.infrastructure.utils.ApiResponse;
 import com.test.product.inventory.infrastructure.utils.ConstantUtil;
@@ -30,7 +30,7 @@ public class CategoryController {
     private final CategoryRestMapper categoryRestMapper;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<ApiResponse<CategoryResponse>> createCategory(
+    public ResponseEntity<ApiResponse<CategorySummaryResponse>> createCategory(
             @Valid @RequestBody CategoryRequest request) {
 
         var command = request.toCommand();
@@ -39,7 +39,7 @@ public class CategoryController {
 
         var response = categoryRestMapper.toResponse(responseDomain);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.<CategoryResponse>builder()
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.<CategorySummaryResponse>builder()
                 .code(ConstantUtil.CREATED_CODE_HTTP)
                 .data(response)
                 .message(ConstantUtil.CREATED_MESSAGE)

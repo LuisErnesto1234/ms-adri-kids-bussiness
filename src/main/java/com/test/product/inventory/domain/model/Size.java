@@ -6,7 +6,8 @@ import com.test.product.inventory.domain.enums.TypeProduct;
 import java.time.Instant;
 import java.util.UUID;
 
-public record Size(UUID id, String name, TypeProduct type, String sortOrder, Instant createdAt, Instant updatedAt,
+public record Size(UUID id, String name, TypeProduct type, String sortOrder,
+                   Instant createdAt, Instant updatedAt,
                    Status status) {
 
     public Size {

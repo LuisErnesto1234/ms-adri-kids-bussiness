@@ -2,6 +2,8 @@ package com.test.product.inventory.infrastructure.adapter.out.persistence.reposi
 
 import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.ProductVariantEntity;
 import jakarta.persistence.LockModeType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +19,8 @@ public interface ProductVariantJpaRepository extends JpaRepository<ProductVarian
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT p FROM ProductVariantEntity p WHERE p.id = :id")
     Optional<ProductVariantEntity> findByIdWithLock(@Param("id") UUID id);
+
+    @Query(value = "SELECT pve FROM ProductVariantEntity pve JOIN FETCH pve.colors JOIN FETCH pve.sizes",
+    countQuery = "SELECT COUNT(pve) FROM ProductVariantEntity pve")
+    Page<ProductVariantEntity> findAllProductVariantWithColorWithSizes(Pageable pageable);
 }

@@ -1,12 +1,15 @@
 package com.test.product.inventory.infrastructure.adapter;
 
 import com.test.product.inventory.domain.model.Product;
+import com.test.product.inventory.domain.model.details.ProductDetails;
 import com.test.product.inventory.domain.port.out.ProductRepositoryPort;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.ProductEntity;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.mapper.ProductEntityMapper;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.repository.ProductJpaRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -34,5 +37,17 @@ public class ProductPersistenceAdapter implements ProductRepositoryPort {
     @Override
     public Boolean existById(UUID id) {
         return productJpaRepository.existsById(id);
+    }
+
+    @Override
+    public Page<Product> findAll(Pageable pageable) {
+        return productJpaRepository.findAll(pageable).map(productEntityMapper::toDomain);
+    }
+
+    @Override
+    public Page<ProductDetails> findAllWithCategory(Pageable pageable) {
+        Page<ProductEntity> entities = productJpaRepository.findAllWithCategory(pageable);
+
+        return entities.map(productEntityMapper::toDetails);
     }
 }

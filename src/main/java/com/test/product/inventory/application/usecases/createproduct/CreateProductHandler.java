@@ -8,7 +8,9 @@ import com.test.product.inventory.domain.model.details.ProductDetails;
 import com.test.product.inventory.domain.port.out.CategoryRepositoryPort;
 import com.test.product.inventory.domain.port.out.ProductRepositoryPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -17,6 +19,8 @@ public class CreateProductHandler implements Command.Handler<CreateProductComman
     private final ProductRepositoryPort productRepositoryPort;
     private final CategoryRepositoryPort categoryRepositoryPort;
 
+    @Transactional
+    @CacheEvict(value = "products_page", allEntries = true)
     @Override
     public ProductDetails handle(CreateProductCommand command) {
         Product productToSave = Product.createProduct(command.categoryId(),

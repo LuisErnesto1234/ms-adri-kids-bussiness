@@ -1,9 +1,10 @@
 package com.test.product.inventory.infrastructure.adapter.in.mapper;
 
-import com.test.product.inventory.domain.model.details.ProductDetails;
 import com.test.product.inventory.application.usecases.createproduct.CreateProductCommand;
+import com.test.product.inventory.domain.model.details.ProductDetails;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.CreateProductRequest;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductSummaryResponse;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -17,6 +18,5 @@ public interface ProductRestMapper {
 
     @Mapping(source = "category", target = "categoryResponse")
     @Mapping(source = "productVariants", target = "productVariants")
-    ProductResponse toResponse(ProductDetails productDetails);
-
+    ProductSummaryResponse toResponse(ProductDetails productDetails);
 }

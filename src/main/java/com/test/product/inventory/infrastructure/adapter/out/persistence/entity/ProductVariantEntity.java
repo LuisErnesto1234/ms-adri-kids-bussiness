@@ -40,7 +40,7 @@ public class ProductVariantEntity {
 
     @Column(name = "price_adjustment", scale = 2, precision = 10, nullable = false)
     private BigDecimal priceAdjustment;
-    
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "product_variant_colors",
@@ -48,9 +48,15 @@ public class ProductVariantEntity {
             inverseJoinColumns = @JoinColumn(name = "color_id"))
     private List<ColorEntity> colors;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "product_variant_entity",
+            joinColumns = @JoinColumn(name = "product_variant_id"),
+            inverseJoinColumns = @JoinColumn(name = "size_id"))
+    private List<SizeEntity> sizes;
+
     @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;

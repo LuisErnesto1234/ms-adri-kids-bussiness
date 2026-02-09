@@ -6,6 +6,8 @@ import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.
 import com.test.product.inventory.infrastructure.adapter.out.persistence.mapper.ProductVariantEntityMapper;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.repository.ProductVariantJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -34,5 +36,11 @@ public class ProductVariantPersistenceAdapter implements ProductVariantRepositor
     @Override
     public Boolean existById(UUID id) {
         return productVariantJpaRepository.existsById(id);
+    }
+
+    @Override
+    public Page<ProductVariant> findAll(Pageable pageable) {
+        return productVariantJpaRepository.findAllProductVariantWithColorWithSizes(pageable)
+                .map(productVariantEntityMapper::toDomain);
     }
 }

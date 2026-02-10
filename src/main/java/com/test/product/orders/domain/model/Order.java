@@ -1,7 +1,7 @@
 package com.test.product.orders.domain.model;
 
 import com.test.product.orders.domain.enums.OrderStatus;
-import com.test.product.shared.domain.GeneralStatus;
+import com.test.product.shared.domain.enums.GeneralStatus;
 
 import java.math.BigDecimal;
 import java.time.Instant;

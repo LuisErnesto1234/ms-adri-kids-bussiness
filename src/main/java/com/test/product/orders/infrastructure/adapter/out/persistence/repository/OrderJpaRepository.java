@@ -16,7 +16,7 @@ public interface OrderJpaRepository extends JpaRepository<OrderEntity, UUID> {
     @Query("""
                         SELECT o FROM OrderEntity o WHERE o.customerId = :customerId
                         AND o.status = com.test.product.orders.domain.enums.OrderStatus.PENDING
-                        AND o.generalStatus = com.test.product.shared.domain.GeneralStatus.ACTIVE
+                        AND o.generalStatus = com.test.product.shared.domain.enums.GeneralStatus.ACTIVE
             """)
     Optional<OrderEntity> findAllByCustomerWhereOrderNow(UUID costumerId);
 

@@ -20,7 +20,6 @@ public interface ProductVariantJpaRepository extends JpaRepository<ProductVarian
     @Query("SELECT p FROM ProductVariantEntity p WHERE p.id = :id")
     Optional<ProductVariantEntity> findByIdWithLock(@Param("id") UUID id);
 
-    @Query(value = "SELECT pve FROM ProductVariantEntity pve JOIN FETCH pve.colors JOIN FETCH pve.sizes",
-    countQuery = "SELECT COUNT(pve) FROM ProductVariantEntity pve")
+    @Query("SELECT pve FROM ProductVariantEntity pve")
     Page<ProductVariantEntity> findAllProductVariantWithColorWithSizes(Pageable pageable);
 }

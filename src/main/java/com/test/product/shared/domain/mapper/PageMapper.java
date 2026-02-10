@@ -1,9 +1,9 @@
-package com.test.product.shared.domain;
+package com.test.product.shared.domain.mapper;
 
-import lombok.experimental.UtilityClass;
+import com.test.product.shared.domain.dtos.PagedResult;
+
 import org.springframework.data.domain.Page;
 
-@UtilityClass
 public class PageMapper {
 
     public static <T> PagedResult<T> fromPage(Page<T> page) {
@@ -14,5 +14,8 @@ public class PageMapper {
                 page.getTotalElements(),
                 page.getTotalPages()
         );
+    }
+
+    public PageMapper() {
     }
 }

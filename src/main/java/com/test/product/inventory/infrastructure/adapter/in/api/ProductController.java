@@ -4,10 +4,10 @@ import an.awesome.pipelinr.Pipeline;
 
 import com.test.product.inventory.application.querys.getproduct.GetProductsQuery;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.CreateProductRequest;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductSummaryResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductCardResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.ProductRestMapper;
-import com.test.product.shared.domain.ApiResponse;
-import com.test.product.shared.domain.PagedResult;
+import com.test.product.shared.domain.dtos.ApiResponse;
+import com.test.product.shared.domain.dtos.PagedResult;
 
 import jakarta.validation.Valid;
 
@@ -31,20 +31,20 @@ public class ProductController {
     private final ProductRestMapper productRestMapper;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<ApiResponse<ProductSummaryResponse>> createProduct(@Valid @RequestBody CreateProductRequest request) {
+    public ResponseEntity<ApiResponse<ProductCardResponse>> createProduct(@Valid @RequestBody CreateProductRequest request) {
 
         var command = request.toCommand();
 
         var domainResponse = command.execute(pipeline);
 
-        var response = productRestMapper.toResponse(domainResponse);
+        var response = productRestMapper.toResponseCard(domainResponse);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.buildCreated(response));
     }
 
     @GetMapping(value = "/find-all")
-    public ResponseEntity<ApiResponse<PagedResult<ProductSummaryResponse>>> findAllProducts(
+    public ResponseEntity<ApiResponse<PagedResult<ProductCardResponse>>> findAllProducts(
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             @RequestParam(required = false) String search) {
 

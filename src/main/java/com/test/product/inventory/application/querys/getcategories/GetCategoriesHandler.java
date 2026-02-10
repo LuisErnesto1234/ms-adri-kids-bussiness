@@ -5,14 +5,16 @@ import an.awesome.pipelinr.Command;
 import com.test.product.inventory.domain.port.out.CategoryRepositoryPort;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.CategorySummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.CategoryRestMapper;
-import com.test.product.shared.domain.PagedResult;
-import com.test.product.shared.mapper.PageMapper;
+import com.test.product.shared.domain.dtos.PagedResult;
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -26,15 +28,23 @@ public class GetCategoriesHandler implements Command.Handler<GetCategoriesQuery,
     @Override
     @Cacheable(
             value = "categories_page",
-            key = "#query.pageable().pageNumber + '-' + #query.pageable().pageSize + '-' + #query.filterText()",
-            unless = "#result.isEmpty()" // No cachear si la lista está vacía
+            key = "#query.pageable().pageNumber + '-' + #query.pageable().pageSize + '-' + (#query.filterText() ?: 'empty')",
+            unless = "#result.content().empty"
     )
     public PagedResult<CategorySummaryResponse> handle(GetCategoriesQuery query) {
 
-        var categories = categoryRepositoryPort.findAll(query.pageable());
+        var domainPage = categoryRepositoryPort.findAll(query.pageable());
 
-        var categoriesSummary = categories.map(categoryRestMapper::toResponse);
+        var categoriesMutable = domainPage.stream()
+                .map(categoryRestMapper::toResponse)
+                .collect(Collectors.toCollection(ArrayList::new));
 
-        return PageMapper.fromPage(categoriesSummary);
+        return new PagedResult<>(
+                categoriesMutable,
+                query.pageable().getPageNumber(),
+                query.pageable().getPageSize(),
+                domainPage.getTotalElements(),
+                domainPage.getTotalPages()
+        );
     }
 }

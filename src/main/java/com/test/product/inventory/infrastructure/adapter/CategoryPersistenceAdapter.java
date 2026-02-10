@@ -5,7 +5,6 @@ import com.test.product.inventory.domain.port.out.CategoryRepositoryPort;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.CategoryEntity;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.mapper.CategoryEntityMapper;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.repository.CategoryJpaRepository;
-import com.test.product.shared.domain.PagedResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

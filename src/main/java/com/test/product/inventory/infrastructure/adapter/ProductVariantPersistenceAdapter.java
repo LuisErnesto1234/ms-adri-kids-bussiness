@@ -6,6 +6,7 @@ import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.
 import com.test.product.inventory.infrastructure.adapter.out.persistence.mapper.ProductVariantEntityMapper;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.repository.ProductVariantJpaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class ProductVariantPersistenceAdapter implements ProductVariantRepositoryPort {
@@ -22,7 +24,10 @@ public class ProductVariantPersistenceAdapter implements ProductVariantRepositor
 
     @Override
     public ProductVariant save(ProductVariant productVariant) {
-        ProductVariantEntity productVariantEntity = productVariantJpaRepository.save(productVariantEntityMapper.toEntity(productVariant));
+        ProductVariantEntity productVariantEntity = productVariantEntityMapper.toEntity(productVariant);
+        log.info("Saving product variant entity: {}", productVariantEntity);
+
+        productVariantJpaRepository.save(productVariantEntity);
 
         return productVariantEntityMapper.toDomain(productVariantEntity);
     }

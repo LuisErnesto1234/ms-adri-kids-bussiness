@@ -5,7 +5,7 @@ import com.test.product.orders.domain.model.AppliedCoupon;
 import com.test.product.orders.domain.model.OrderItem;
 import com.test.product.orders.domain.model.PriceBreakdown;
 import com.test.product.orders.domain.model.ShippingDetails;
-import com.test.product.shared.domain.GeneralStatus;
+import com.test.product.shared.domain.enums.GeneralStatus;
 
 import java.time.Instant;
 import java.util.List;

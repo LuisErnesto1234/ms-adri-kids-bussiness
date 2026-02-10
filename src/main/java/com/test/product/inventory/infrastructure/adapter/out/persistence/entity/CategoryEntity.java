@@ -1,7 +1,6 @@
 package com.test.product.inventory.infrastructure.adapter.out.persistence.entity;
 
-import com.test.product.inventory.domain.enums.Status;
-import com.test.product.inventory.infrastructure.adapter.out.persistence.dto.enums.EntityStatus;
+import com.test.product.inventory.domain.enums.InventoryStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,7 +33,7 @@ public class CategoryEntity {
     @Column(name = "image_url", length = 500)
     private String urlImage;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ProductEntity> productEntities;
 
     @CreationTimestamp
@@ -47,6 +46,6 @@ public class CategoryEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private InventoryStatus status;
 
 }

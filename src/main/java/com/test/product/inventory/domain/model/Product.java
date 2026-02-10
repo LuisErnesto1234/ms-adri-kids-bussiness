@@ -1,6 +1,7 @@
 package com.test.product.inventory.domain.model;
 
-import com.test.product.inventory.domain.enums.Status;
+import com.test.product.inventory.domain.enums.InventoryStatus;
+import com.test.product.inventory.domain.exception.InsufficientStockException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Slf4j
 public record Product(UUID id, UUID categoryId, String name, String description, BigDecimal basePrice, String imageUrl,
                       List<ProductVariant> productVariants,
-                      Instant createdAt, Instant updatedAt, Status status) {
+                      Instant createdAt, Instant updatedAt, InventoryStatus status) {
     
     public boolean hasStock(UUID productVariantId, Integer quantityRequested){
         return productVariants.stream()
@@ -37,11 +38,12 @@ public record Product(UUID id, UUID categoryId, String name, String description,
     }
 
     public static Product createProduct(UUID categoryId, String name, String description, BigDecimal basePrice,
-                                        String imageUrl, Status status){
+                                        String imageUrl, InventoryStatus status){
 
         log.info("Id de categoria recibido, {}", categoryId);
         // Se pasa una lista vacía al crear un nuevo producto
-        return new Product(UUID.randomUUID(), categoryId, name, description, basePrice, imageUrl, List.of(), null, null, status);
+        return new Product(UUID.randomUUID(), categoryId, name, description, basePrice, imageUrl,
+                List.of(), Instant.now(), Instant.now(), status);
     }
 
     public Product addVariant(ProductVariant variant) {
@@ -53,11 +55,14 @@ public record Product(UUID id, UUID categoryId, String name, String description,
             throw new IllegalArgumentException("La variante no pertenece a este producto.");
         }
 
-        if (productVariants.stream().anyMatch(v -> v.id().equals(variant.id()) || v.sku().equalsIgnoreCase(variant.sku()))) {
+        List<ProductVariant> currentVariants = this.productVariants == null ?
+                new ArrayList<>() : this.productVariants;
+
+        if (currentVariants.stream().anyMatch(v -> v.id().equals(variant.id()) || v.sku().equalsIgnoreCase(variant.sku()))) {
             throw new IllegalArgumentException("La variante con ID o SKU ya existe en este producto.");
         }
 
-        List<ProductVariant> updatedVariants = new ArrayList<>(this.productVariants);
+        List<ProductVariant> updatedVariants = new ArrayList<>(currentVariants);
         updatedVariants.add(variant);
 
         return new Product(this.id, this.categoryId, this.name, this.description, this.basePrice, this.imageUrl,

@@ -17,7 +17,6 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
 public class CustomerEntity {
 
     @Id
@@ -64,6 +63,5 @@ public class CustomerEntity {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    @Builder.Default
     private Status status = Status.ACTIVE;
 }

@@ -1,9 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter.out.persistence.entity;
 
-import com.test.product.inventory.domain.enums.Status;
+import com.test.product.inventory.domain.enums.InventoryStatus;
 import com.test.product.inventory.domain.enums.TypeProduct;
-import com.test.product.inventory.infrastructure.adapter.out.persistence.dto.enums.EntityStatus;
-import com.test.product.inventory.infrastructure.adapter.out.persistence.dto.enums.SizeTypeProduct;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,7 +43,7 @@ public class SizeEntity {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private InventoryStatus status;
 
     @Override
     public boolean equals(Object o) {

@@ -1,7 +1,6 @@
 package com.test.product.inventory.domain.port.out;
 
 import com.test.product.inventory.domain.model.Category;
-import com.test.product.shared.domain.PagedResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

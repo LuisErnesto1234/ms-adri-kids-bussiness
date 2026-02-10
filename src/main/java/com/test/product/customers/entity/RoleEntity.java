@@ -18,7 +18,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
 public class RoleEntity {
 
     @Id
@@ -46,6 +45,5 @@ public class RoleEntity {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    @Builder.Default
     private Status status = Status.ACTIVE;
 }

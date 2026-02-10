@@ -1,20 +1,16 @@
 package com.test.product.inventory.infrastructure.adapter.out.persistence.entity;
 
-import com.test.product.inventory.domain.enums.Status;
-
+import com.test.product.inventory.domain.enums.InventoryStatus;
 import jakarta.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -41,18 +37,13 @@ public class ProductVariantEntity {
     @Column(name = "price_adjustment", scale = 2, precision = 10, nullable = false)
     private BigDecimal priceAdjustment;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "product_variant_colors",
-            joinColumns = @JoinColumn(name = "product_variant_id"),
-            inverseJoinColumns = @JoinColumn(name = "color_id"))
-    private List<ColorEntity> colors;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "color_id", nullable = false)
+    private ColorEntity color;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "product_variant_entity",
-            joinColumns = @JoinColumn(name = "product_variant_id"),
-            inverseJoinColumns = @JoinColumn(name = "size_id"))
-    private List<SizeEntity> sizes;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "size_id", nullable = false)
+    private SizeEntity size;
 
     @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
@@ -71,7 +62,7 @@ public class ProductVariantEntity {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private InventoryStatus status;
 
     @Override
     public boolean equals(Object o) {

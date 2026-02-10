@@ -2,7 +2,7 @@ package com.test.product.inventory.infrastructure.adapter.listener;
 
 import com.test.product.inventory.application.usecases.getpriceforvariant.GetPriceForVariantIdAndStockCommand;
 import com.test.product.inventory.application.usecases.getpriceforvariant.GetPriceForVariantIdAndStockHandler;
-import com.test.product.shared.events.CheckStockAndPriceEvent;
+import com.test.product.shared.events.inventory.CheckStockAndPriceEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;

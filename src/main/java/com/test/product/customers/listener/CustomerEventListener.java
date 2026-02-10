@@ -1,7 +1,7 @@
 package com.test.product.customers.listener;
 
 import com.test.product.customers.repository.CustomerJpaRepository;
-import com.test.product.shared.customer.events.CustomerFindByUsernameEvent;
+import com.test.product.shared.events.customer.CustomerFindByUsernameEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;

@@ -14,7 +14,8 @@ public class CreateCategoryHandler implements Command.Handler<CreateCategoryComm
 
     @Override
     public Category handle(CreateCategoryCommand command) {
-        Category category = Category.createCategory(command.name(), command.description(), command.urlImage());
+        Category category = Category.createCategory(command.name(), command.description(),
+                command.urlImage(), command.status());
 
         return categoryRepositoryPort.save(category);
     }

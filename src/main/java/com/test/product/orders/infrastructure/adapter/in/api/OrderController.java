@@ -13,7 +13,7 @@ import com.test.product.orders.infrastructure.adapter.in.dto.request.MarkShipped
 import com.test.product.orders.infrastructure.adapter.in.dto.request.SetShippingInfoRequest;
 import com.test.product.orders.infrastructure.adapter.in.dto.response.OrderResponse;
 import com.test.product.orders.infrastructure.adapter.in.mapper.OrderRestMapper;
-import com.test.product.shared.domain.ApiResponse;
+import com.test.product.shared.domain.dtos.ApiResponse;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

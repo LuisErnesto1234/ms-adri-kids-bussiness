@@ -11,6 +11,8 @@ import org.mapstruct.MappingConstants;
 public interface PermissionRestMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     PermissionEntity toEntity(PermissionRequest request);
 
     PermissionResponse toResponse(PermissionEntity entity);

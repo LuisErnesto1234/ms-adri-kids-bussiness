@@ -5,10 +5,10 @@ import an.awesome.pipelinr.Pipeline;
 import com.test.product.inventory.application.querys.getproductvariants.GetProductVariantsQuery;
 import com.test.product.inventory.application.usecases.incrementstockproductvariant.IncrementStockProductVariantCommand;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.ProductVariantRequest;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductVariantSummariesResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductVariantCardResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.ProductVariantRestMapper;
-import com.test.product.shared.domain.ApiResponse;
-import com.test.product.shared.domain.PagedResult;
+import com.test.product.shared.domain.dtos.ApiResponse;
+import com.test.product.shared.domain.dtos.PagedResult;
 
 import jakarta.validation.Valid;
 
@@ -32,13 +32,13 @@ public class ProductVariantController {
     private final ProductVariantRestMapper productVariantRestMapper;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<ApiResponse<ProductVariantSummariesResponse>> createProductVariant(
+    public ResponseEntity<ApiResponse<ProductVariantCardResponse>> createProductVariant(
             @Valid @RequestBody ProductVariantRequest request) {
-        var command = productVariantRestMapper.toCommand(request);
+        var command = request.toCommand();
 
         var entity = command.execute(pipeline);
 
-        var response = productVariantRestMapper.toResponseDetails(entity);
+        var response = productVariantRestMapper.toResponseDetails(entity, entity.product().basePrice());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.buildCreated(response));
     }
@@ -54,7 +54,7 @@ public class ProductVariantController {
     }
 
     @GetMapping(value = "/find-all")
-    public ResponseEntity<ApiResponse<PagedResult<ProductVariantSummariesResponse>>> findAllProductVariants(
+    public ResponseEntity<ApiResponse<PagedResult<ProductVariantCardResponse>>> findAllProductVariants(
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             @RequestParam(required = false) String search) {
 

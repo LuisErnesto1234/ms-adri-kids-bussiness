@@ -1,6 +1,6 @@
 package com.test.product.inventory.infrastructure.adapter.out.persistence.entity;
 
-import com.test.product.inventory.domain.enums.Status;
+import com.test.product.inventory.domain.enums.InventoryStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,7 +55,7 @@ public class ProductEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private InventoryStatus status;
 
     @Override
     public boolean equals(Object o) {

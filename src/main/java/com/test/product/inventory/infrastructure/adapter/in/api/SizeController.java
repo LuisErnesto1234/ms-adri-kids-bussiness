@@ -6,8 +6,8 @@ import com.test.product.inventory.infrastructure.adapter.in.dto.request.SizeRequ
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.SizeSummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.SizeRestMapper;
 
-import com.test.product.shared.domain.ApiResponse;
-import com.test.product.shared.domain.PagedResult;
+import com.test.product.shared.domain.dtos.ApiResponse;
+import com.test.product.shared.domain.dtos.PagedResult;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;

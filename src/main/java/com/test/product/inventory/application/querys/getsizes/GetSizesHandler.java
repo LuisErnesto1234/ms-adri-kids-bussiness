@@ -5,8 +5,8 @@ import an.awesome.pipelinr.Command;
 import com.test.product.inventory.domain.port.out.SizeRepositoryPort;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.SizeSummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.SizeRestMapper;
-import com.test.product.shared.domain.PageMapper;
-import com.test.product.shared.domain.PagedResult;
+import com.test.product.shared.domain.mapper.PageMapper;
+import com.test.product.shared.domain.dtos.PagedResult;
 
 import lombok.RequiredArgsConstructor;
 

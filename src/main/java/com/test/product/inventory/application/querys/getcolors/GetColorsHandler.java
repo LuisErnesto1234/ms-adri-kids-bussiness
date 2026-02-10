@@ -4,12 +4,17 @@ import an.awesome.pipelinr.Command;
 import com.test.product.inventory.domain.port.out.ColorRepositoryPort;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.ColorSummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.ColorRestMapper;
-import com.test.product.shared.domain.PageMapper;
-import com.test.product.shared.domain.PagedResult;
+
+import com.test.product.shared.domain.dtos.PagedResult;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -27,10 +32,19 @@ public class GetColorsHandler implements Command.Handler<GetColorsQuery, PagedRe
     @Override
     public PagedResult<ColorSummaryResponse> handle(GetColorsQuery query) {
 
-        var result = colorRepositoryPort.findAll(query.pageable());
+        var domainPage = colorRepositoryPort.findAll(query.pageable());
 
-        var response = result.map(colorRestMapper::toResponse);
+        ArrayList<ColorSummaryResponse> mutableColors = domainPage.getContent()
+                .stream()
+                .map(colorRestMapper::toResponse)
+                .collect(Collectors.toCollection(ArrayList::new));
 
-        return PageMapper.fromPage(response);
+        return new PagedResult<>(
+                mutableColors,
+                query.pageable().getPageNumber(),
+                query.pageable().getPageSize(),
+                domainPage.getTotalElements(),
+                domainPage.getTotalPages()
+        );
     }
 }

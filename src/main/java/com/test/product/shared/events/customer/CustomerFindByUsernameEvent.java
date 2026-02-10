@@ -1,4 +1,4 @@
-package com.test.product.shared.customer.events;
+package com.test.product.shared.events.customer;
 
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;

@@ -5,7 +5,7 @@ import com.test.product.orders.domain.enums.OrderStatus;
 import com.test.product.orders.infrastructure.adapter.out.persistence.entity.embeddable.AppliedCouponEmbeddable;
 import com.test.product.orders.infrastructure.adapter.out.persistence.entity.embeddable.PriceBreakdownEmbeddable;
 import com.test.product.orders.infrastructure.adapter.out.persistence.entity.embeddable.ShippingDetailsEmbeddable;
-import com.test.product.shared.domain.GeneralStatus;
+import com.test.product.shared.domain.enums.GeneralStatus;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;

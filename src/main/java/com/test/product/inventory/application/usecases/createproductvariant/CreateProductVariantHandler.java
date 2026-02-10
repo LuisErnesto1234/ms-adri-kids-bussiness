@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 import an.awesome.pipelinr.Command;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CreateProductVariantHandler implements Command.Handler<CreateProductVariantCommand, ProductVariantDetails> {
@@ -31,12 +33,14 @@ public class CreateProductVariantHandler implements Command.Handler<CreateProduc
     private final ColorRepositoryPort colorRepositoryPort;
     private final SizeRepositoryPort sizeRepositoryPort;
 
-    @Transactional(rollbackFor =  Exception.class, timeout = 10, propagation = Propagation.REQUIRES_NEW)
+    @Transactional(rollbackFor = Exception.class, timeout = 10, propagation = Propagation.REQUIRES_NEW)
     @CacheEvict(value = "product_variant_page", allEntries = true)
     @Override
     public ProductVariantDetails handle(CreateProductVariantCommand command) {
         Product productFind = productRepositoryPort.findById(command.productId())
                 .orElseThrow(() -> new NotFoundException("El producto no fue encontrado"));
+
+        log.info("LLego el producto de manera excelente, {}", productFind.name());
 
         Color colorFind = colorRepositoryPort.findById(command.colorId())
                 .orElseThrow(() -> new NotFoundException("El color no fue encontrado"));
@@ -46,12 +50,22 @@ public class CreateProductVariantHandler implements Command.Handler<CreateProduc
 
         String sku = validateSku(productFind, colorFind, command.sku());
 
-        ProductVariant productVariantCreate = ProductVariant.createdProductVariant(productFind.id(),
+        ProductVariant productVariantInit = ProductVariant.createdProductVariant(productFind.id(),
                 colorFind.id(), command.sizeId(), sku, command.stockQuantity(), command.priceAdjustment(), command.imageUrl());
 
-        productVariantCreate.associateWithProduct(productFind);
+        // 4. Lógica de asociación (Devuelve la nueva instancia inmutable)
+        // NOTA: Si ya pasaste el productFind.id() en el constructor de arriba,
+        // este paso quizás solo sea para agregar a la lista del padre en memoria.
+        ProductVariant productVariantReady = productVariantInit.associateWithProduct(productFind);
 
-        ProductVariant productVariantSave = productVariantRepositoryPort.save(productVariantCreate);
+        // 5. Guardado
+        // Si tienes Cascade.ALL en Product, basta con: productRepositoryPort.save(productFind);
+        // Si no, guardamos la variante:
+        ProductVariant productVariantSave = productVariantRepositoryPort.save(productVariantReady);
+
+        // Solo guardamos producto si modificamos algo en él, si solo tocamos la lista y no hay cascade,
+        // esto sobra.
+        // productRepositoryPort.save(productFind);
 
         return buildProductVariantDetails(productVariantSave, productFind, colorFind, sizeFind);
     }

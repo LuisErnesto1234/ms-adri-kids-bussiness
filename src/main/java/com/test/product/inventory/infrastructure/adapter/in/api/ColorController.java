@@ -3,11 +3,11 @@ package com.test.product.inventory.infrastructure.adapter.in.api;
 import an.awesome.pipelinr.Pipeline;
 
 import com.test.product.inventory.application.querys.getcolors.GetColorsQuery;
-import com.test.product.inventory.infrastructure.adapter.in.dto.request.ColorRequest;
+import com.test.product.inventory.infrastructure.adapter.in.dto.request.CreateColorRequest;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.ColorSummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.ColorRestMapper;
-import com.test.product.shared.domain.ApiResponse;
-import com.test.product.shared.domain.PagedResult;
+import com.test.product.shared.domain.dtos.ApiResponse;
+import com.test.product.shared.domain.dtos.PagedResult;
 
 import jakarta.validation.Valid;
 
@@ -28,7 +28,7 @@ public class ColorController {
     private final ColorRestMapper colorRestMapper;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<ApiResponse<ColorSummaryResponse>> createColor(@Valid @RequestBody ColorRequest request) {
+    public ResponseEntity<ApiResponse<ColorSummaryResponse>> createColor(@Valid @RequestBody CreateColorRequest request) {
         var command = request.toCommand();
 
         var domain = command.execute(pipeline);
@@ -41,7 +41,7 @@ public class ColorController {
 
     @GetMapping(value = "/find-all")
     public ResponseEntity<ApiResponse<PagedResult<ColorSummaryResponse>>> findAllColors(@PageableDefault Pageable pageable,
-                                                                                        @RequestParam String search) {
+                                                                                        @RequestParam(required = false) String search) {
         var command = new GetColorsQuery(pageable, search);
 
         var response = command.execute(pipeline);

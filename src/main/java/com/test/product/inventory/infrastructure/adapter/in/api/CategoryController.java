@@ -2,7 +2,8 @@ package com.test.product.inventory.infrastructure.adapter.in.api;
 
 import an.awesome.pipelinr.Pipeline;
 
-import com.test.product.inventory.infrastructure.adapter.in.dto.request.CategoryRequest;
+import com.test.product.inventory.application.usecases.disablecategory.DisableCategoryCommand;
+import com.test.product.inventory.infrastructure.adapter.in.dto.request.CreateCategoryRequest;
 import com.test.product.inventory.infrastructure.adapter.in.dto.response.CategorySummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.CategoryRestMapper;
 import com.test.product.inventory.infrastructure.utils.ApiResponse;
@@ -14,12 +15,10 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1/category")
@@ -31,7 +30,7 @@ public class CategoryController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<ApiResponse<CategorySummaryResponse>> createCategory(
-            @Valid @RequestBody CategoryRequest request) {
+            @Valid @RequestBody CreateCategoryRequest request) {
 
         var command = request.toCommand();
 
@@ -45,6 +44,15 @@ public class CategoryController {
                 .message(ConstantUtil.CREATED_MESSAGE)
                 .timeStamp(Instant.now())
                 .build());
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteCategory(@PathVariable UUID id) {
+        var command = new DisableCategoryCommand(id);
+        command.execute(pipeline);
+
+        return ResponseEntity.noContent().build();
+
     }
 
 }

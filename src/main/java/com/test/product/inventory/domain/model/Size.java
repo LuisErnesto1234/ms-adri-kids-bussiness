@@ -1,6 +1,6 @@
 package com.test.product.inventory.domain.model;
 
-import com.test.product.inventory.domain.enums.Status;
+import com.test.product.inventory.domain.enums.InventoryStatus;
 import com.test.product.inventory.domain.enums.TypeProduct;
 
 import java.time.Instant;
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public record Size(UUID id, String name, TypeProduct type, String sortOrder,
                    Instant createdAt, Instant updatedAt,
-                   Status status) {
+                   InventoryStatus status) {
 
     public Size {
         if (name == null || name.isBlank()) {
@@ -29,7 +29,7 @@ public record Size(UUID id, String name, TypeProduct type, String sortOrder,
 
     }
 
-    public static Size createSize(String name, TypeProduct type, String sortOrder, Status status) {
+    public static Size createSize(String name, TypeProduct type, String sortOrder, InventoryStatus status) {
         return new Size(UUID.randomUUID(), name, type, sortOrder, Instant.now(), Instant.now(), status);
     }
 }

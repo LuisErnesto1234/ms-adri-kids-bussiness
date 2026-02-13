@@ -1,12 +1,16 @@
 package com.test.product.inventory.application.usecases.deletecolor;
 
 import an.awesome.pipelinr.Command;
+
 import com.test.product.inventory.domain.exception.NotFoundException;
 import com.test.product.inventory.domain.port.out.ColorRepositoryPort;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
@@ -15,11 +19,14 @@ public class DeleteColorHandler implements Command.Handler<DeleteColorCommand, V
 
     private final ColorRepositoryPort colorRepositoryPort;
 
-    @CacheEvict(value = "colors_page", allEntries = true)
-    @Transactional(rollbackFor = Exception.class, timeout = 10, propagation = Propagation.REQUIRED)
+    @Transactional(timeout = 10, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+    @Caching(evict = {
+            @CacheEvict(value = "color_page", allEntries = true),
+            @CacheEvict(value = "color", key = "'color:' + #command.id")
+    })
     @Override
     public Void handle(DeleteColorCommand command) {
-        if (colorRepositoryPort.existById(command.id())) {
+        if (Boolean.TRUE.equals(colorRepositoryPort.existById(command.id()))) {
             colorRepositoryPort.deleteById(command.id());
         }
 

@@ -2,7 +2,7 @@ package com.test.product.inventory.application.querys.getcolors;
 
 import an.awesome.pipelinr.Command;
 import com.test.product.inventory.domain.port.out.ColorRepositoryPort;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ColorSummaryResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.color.ColorSummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.ColorRestMapper;
 
 import com.test.product.shared.domain.dtos.PagedResult;
@@ -25,9 +25,9 @@ public class GetColorsHandler implements Command.Handler<GetColorsQuery, PagedRe
 
     @Transactional(readOnly = true)
     @Cacheable(
-            value = "colors_page",
-            key = "#query.pageable().pageNumber + '-' + #query.pageable().pageSize + '-' + #query.filterText()",
-            unless = "#result.content().empty"
+            value = "color_page",
+            key = "'color_page:' + #query.pageable().pageSize + '-' + #query.pageable().pageNumber + '-' + (#query.filterText ?: 'empty')",
+            unless = "#result.content.empty"
     )
     @Override
     public PagedResult<ColorSummaryResponse> handle(GetColorsQuery query) {

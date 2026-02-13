@@ -1,4 +1,4 @@
-package com.test.product.inventory.infrastructure.adapter.in.dto.response;
+package com.test.product.inventory.infrastructure.adapter.in.dto.response.size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

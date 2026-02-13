@@ -8,13 +8,17 @@ import com.test.product.inventory.infrastructure.adapter.out.persistence.mapper.
 import com.test.product.inventory.infrastructure.adapter.out.persistence.repository.ProductJpaRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class ProductPersistenceAdapter implements ProductRepositoryPort {
@@ -49,5 +53,18 @@ public class ProductPersistenceAdapter implements ProductRepositoryPort {
         Page<ProductEntity> entities = productJpaRepository.findAllWithCategory(pageable);
 
         return entities.map(productEntityMapper::toDetails);
+    }
+
+    @Override
+    public List<Product> findAllByCategory(UUID categoryId) {
+        return productJpaRepository.findAllByCategoryId(categoryId)
+                .stream().map(productEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<ProductDetails> findProductDetailsById(UUID id) {
+        return productJpaRepository.findProductDetailsById(id)
+                .map(productEntityMapper::toDetails);
     }
 }

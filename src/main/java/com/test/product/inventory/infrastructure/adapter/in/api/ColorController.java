@@ -4,7 +4,7 @@ import an.awesome.pipelinr.Pipeline;
 
 import com.test.product.inventory.application.querys.getcolors.GetColorsQuery;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.CreateColorRequest;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ColorSummaryResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.color.ColorSummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.ColorRestMapper;
 import com.test.product.shared.domain.dtos.ApiResponse;
 import com.test.product.shared.domain.dtos.PagedResult;

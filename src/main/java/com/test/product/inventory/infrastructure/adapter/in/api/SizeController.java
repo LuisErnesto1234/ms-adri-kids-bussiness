@@ -3,7 +3,7 @@ package com.test.product.inventory.infrastructure.adapter.in.api;
 import an.awesome.pipelinr.Pipeline;
 import com.test.product.inventory.application.querys.getsizes.GetSizesQuery;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.SizeRequest;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.SizeSummaryResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.size.SizeSummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.SizeRestMapper;
 
 import com.test.product.shared.domain.dtos.ApiResponse;

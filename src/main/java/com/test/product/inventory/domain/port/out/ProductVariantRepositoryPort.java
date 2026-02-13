@@ -1,6 +1,7 @@
 package com.test.product.inventory.domain.port.out;
 
 import com.test.product.inventory.domain.model.ProductVariant;
+import com.test.product.inventory.domain.model.details.ProductVariantDetails;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,5 +16,7 @@ public interface ProductVariantRepositoryPort {
     Boolean existById(UUID id);
 
     Page<ProductVariant> findAll(Pageable pageable);
+
+    Optional<ProductVariantDetails> findProductVariantDetailById(UUID id);
 
 }

@@ -1,7 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter.in.mapper;
 
 import com.test.product.inventory.domain.model.Size;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.SizeSummaryResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.size.SizeSummaryResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 

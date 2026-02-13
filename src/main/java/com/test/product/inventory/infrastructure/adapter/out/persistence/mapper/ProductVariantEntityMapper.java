@@ -1,6 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter.out.persistence.mapper;
 
 import com.test.product.inventory.domain.model.ProductVariant;
+import com.test.product.inventory.domain.model.details.ProductVariantDetails;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.ColorEntity;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.ProductEntity;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.ProductVariantEntity;
@@ -29,6 +30,13 @@ public interface ProductVariantEntityMapper {
     @Mapping(target = "color", source = "colorId", qualifiedByName = "mapColorRef")
     @Mapping(target = "size", source = "sizeId", qualifiedByName = "mapSizeRef")
     ProductVariantEntity toEntity(ProductVariant domain);
+
+    @Mapping(target = "product", source = "product")
+    @Mapping(target = "stockQuantity", source = "stockQuantity")
+    @Mapping(target = "product.productVariants", source = "product.variants")
+    @Mapping(target = "product.categoryId", source = "product.category.id")
+    @Mapping(target = "product.countVariants", ignore = true)
+    ProductVariantDetails toDetails(ProductVariantEntity entity);
 
 
     // --- MÉTODOS AUXILIARES ---

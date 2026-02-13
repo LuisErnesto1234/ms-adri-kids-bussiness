@@ -4,7 +4,10 @@ import an.awesome.pipelinr.Command;
 import com.test.product.inventory.domain.model.Size;
 import com.test.product.inventory.domain.port.out.SizeRepositoryPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
@@ -13,7 +16,8 @@ public class CreateSizeHandler implements Command.Handler<CreateSizeCommand, Siz
 
     private final SizeRepositoryPort repositoryPort;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class, timeout = 15, propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+    @CacheEvict(value = "size_page", allEntries = true)
     @Override
     public Size handle(CreateSizeCommand command) {
         Size size = Size.createSize(command.name(), command.type(),

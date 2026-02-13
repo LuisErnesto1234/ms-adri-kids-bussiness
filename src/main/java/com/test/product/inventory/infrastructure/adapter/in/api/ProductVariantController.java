@@ -3,9 +3,11 @@ package com.test.product.inventory.infrastructure.adapter.in.api;
 import an.awesome.pipelinr.Pipeline;
 
 import com.test.product.inventory.application.querys.getproductvariants.GetProductVariantsQuery;
+import com.test.product.inventory.application.querys.getproductvariantsbyid.GetProductVariantByIdQuery;
 import com.test.product.inventory.application.usecases.incrementstockproductvariant.IncrementStockProductVariantCommand;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.ProductVariantRequest;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductVariantCardResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.productvariant.ProductVariantCardResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.productvariant.ProductVariantDetailResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.ProductVariantRestMapper;
 import com.test.product.shared.domain.dtos.ApiResponse;
 import com.test.product.shared.domain.dtos.PagedResult;
@@ -62,6 +64,13 @@ public class ProductVariantController {
 
         var response = command.execute(pipeline);
 
+        return ResponseEntity.ok(ApiResponse.buildOk(response));
+    }
+
+    @GetMapping(value = "/find-id/{id}")
+    public ResponseEntity<ApiResponse<ProductVariantDetailResponse>> findById(@PathVariable UUID id) {
+        var query = new GetProductVariantByIdQuery(id);
+        var response = query.execute(pipeline);
         return ResponseEntity.ok(ApiResponse.buildOk(response));
     }
 }

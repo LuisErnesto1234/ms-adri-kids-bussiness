@@ -3,8 +3,10 @@ package com.test.product.inventory.infrastructure.adapter.in.api;
 import an.awesome.pipelinr.Pipeline;
 
 import com.test.product.inventory.application.querys.getproduct.GetProductsQuery;
+import com.test.product.inventory.application.querys.getproductbyid.GetProductByIdQuery;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.CreateProductRequest;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductCardResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.product.ProductCardResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.product.ProductDetailResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.ProductRestMapper;
 import com.test.product.shared.domain.dtos.ApiResponse;
 import com.test.product.shared.domain.dtos.PagedResult;
@@ -12,7 +14,6 @@ import com.test.product.shared.domain.dtos.PagedResult;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,7 +22,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value = "/api/v1/product")
 @RequiredArgsConstructor
@@ -32,15 +34,10 @@ public class ProductController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<ApiResponse<ProductCardResponse>> createProduct(@Valid @RequestBody CreateProductRequest request) {
-
         var command = request.toCommand();
-
         var domainResponse = command.execute(pipeline);
-
         var response = productRestMapper.toResponseCard(domainResponse);
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ApiResponse.buildCreated(response));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.buildCreated(response));
     }
 
     @GetMapping(value = "/find-all")
@@ -54,5 +51,12 @@ public class ProductController {
 
         return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.buildOk(responseDomain));
 
+    }
+
+    @GetMapping(value = "/find-id/{id}")
+    public ResponseEntity<ApiResponse<ProductDetailResponse>> findProductById(@PathVariable UUID id) {
+        var query = new GetProductByIdQuery(id);
+        var responseDomain = query.execute(pipeline);
+        return ResponseEntity.ok(ApiResponse.buildOk(responseDomain));
     }
 }

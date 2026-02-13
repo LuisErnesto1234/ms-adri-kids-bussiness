@@ -3,8 +3,9 @@ package com.test.product.inventory.infrastructure.adapter.in.mapper;
 import com.test.product.inventory.domain.model.ProductVariant;
 import com.test.product.inventory.domain.model.details.ProductDetails;
 import com.test.product.inventory.domain.model.details.ProductVariantDetails;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductDetailResponse;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductVariantCardResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.product.ProductDetailResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.productvariant.ProductVariantCardResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.productvariant.ProductVariantDetailResponse;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,9 +20,16 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, imports = {Instant.class, ChronoUnit.class})
 public interface ProductVariantRestMapper {
 
-    ProductVariantCardResponse toResponse(ProductVariant productVariant);
+    ProductVariantCardResponse toResponseCard(ProductVariant productVariant);
 
-    @Mapping(target = "variants", source = "productVariants") // MapStruct usará el método de abajo
+    @Mapping(source = "product.name", target = "name")
+    @Mapping(source = "color.name", target = "colorName")
+    @Mapping(source = "size.name", target = "sizeName")
+    @Mapping(source = "color.hexCode", target = "colorHexCode")
+    ProductVariantDetailResponse toResponseDetail(ProductVariantDetails productVariantDetails);
+
+    @Mapping(target = "variants", source = "productVariants")
+        // MapStruct usará el método de abajo
     ProductDetailResponse toDetail(ProductDetails product);
 
     // Mapeo de la Lista de Variantes
@@ -41,10 +49,11 @@ public interface ProductVariantRestMapper {
     @Mapping(source = "color.name", target = "colorName")
     @Mapping(source = "color.hexCode", target = "colorHex")
     @Mapping(source = "size.name", target = "sizeName")
-    @Mapping(target = "sku", source = "Sku") // Ojo: Tu record tiene 'Sku' (Mayúscula) y el DTO 'sku'
+    @Mapping(target = "sku", source = "sku") // Ojo: Tu record tiene 'sku' (Mayúscula) y el DTO 'sku'
     @Mapping(target = "price", expression = "java(calculateFinalPrice(basePrice, details.priceAdjustment()))")
     @Mapping(target = "isNew", expression = "java(isVariantNew(details.createdAt()))")
-    @Mapping(target = "stock", source = "stockQuantity") // Mapeo de stockQuantity -> stock
+    @Mapping(target = "stock", source = "stockQuantity")
+        // Mapeo de stockQuantity -> stock
     ProductVariantCardResponse toResponseDetails(ProductVariantDetails details, @Context BigDecimal basePrice);
 
     // --- Métodos Default ---

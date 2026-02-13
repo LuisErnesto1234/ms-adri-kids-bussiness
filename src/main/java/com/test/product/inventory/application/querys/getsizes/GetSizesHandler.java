@@ -3,16 +3,19 @@ package com.test.product.inventory.application.querys.getsizes;
 import an.awesome.pipelinr.Command;
 
 import com.test.product.inventory.domain.port.out.SizeRepositoryPort;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.SizeSummaryResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.size.SizeSummaryResponse;
 import com.test.product.inventory.infrastructure.adapter.in.mapper.SizeRestMapper;
-import com.test.product.shared.domain.mapper.PageMapper;
 import com.test.product.shared.domain.dtos.PagedResult;
 
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -21,19 +24,27 @@ public class GetSizesHandler implements Command.Handler<GetSizesQuery, PagedResu
     private final SizeRepositoryPort sizeRepositoryPort;
     private final SizeRestMapper sizeRestMapper;
 
+    @Transactional(readOnly = true, timeout = 10, isolation = Isolation.READ_COMMITTED)
     @Cacheable(
             value = "sizes_page",
-            key = "#query.pageable().pageSize + '-' + #query.pageable().pageNumber + '-' + #query.searchText()",
-            unless = "#result.content().empty"
+            key = "'size_page:' + #query.pageable().pageSize + '-' + #query.pageable().pageNumber + '-' + (#query.searchText ?: 'empty') + '-' + #query.pageable().sort",
+            unless = "#result.content.empty"
     )
-    @Transactional(readOnly = true)
     @Override
     public PagedResult<SizeSummaryResponse> handle(GetSizesQuery query) {
 
-        var sizeEntities = sizeRepositoryPort.findAll(query.pageable());
+        var sizePage = sizeRepositoryPort.findAll(query.pageable());
 
-        var sizeSummaries = sizeEntities.map(sizeRestMapper::toResponse);
+        var mutableContent = sizePage.stream()
+                .map(sizeRestMapper::toResponse)
+                .collect(Collectors.toCollection(ArrayList::new));
 
-        return PageMapper.fromPage(sizeSummaries);
+        return new PagedResult<>(
+                mutableContent,
+                query.pageable().getPageNumber(),
+                query.pageable().getPageSize(),
+                sizePage.getTotalElements(),
+                sizePage.getTotalPages()
+        );
     }
 }

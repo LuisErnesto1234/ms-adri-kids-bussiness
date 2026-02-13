@@ -2,12 +2,13 @@ package com.test.product.inventory.infrastructure.adapter.in.mapper;
 
 import com.test.product.inventory.application.usecases.createproduct.CreateProductCommand;
 import com.test.product.inventory.domain.enums.InventoryStatus;
-import com.test.product.inventory.domain.model.ProductVariant;
 import com.test.product.inventory.domain.model.details.ProductDetails;
+import com.test.product.inventory.domain.model.details.ProductVariantDetails;
 import com.test.product.inventory.infrastructure.adapter.in.dto.request.CreateProductRequest;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductCardResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.product.ProductCardResponse;
 
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ProductDetailResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.product.ProductDetailResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.productvariant.ProductVariantCardResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -20,13 +21,22 @@ import java.util.List;
         imports = {Instant.class, ChronoUnit.class, InventoryStatus.class})
 public interface ProductRestMapper {
 
+    @Mapping(source = "category.name", target = "categoryName")
+    @Mapping(source = "productVariants", target = "variants")
+    ProductDetailResponse toResponseDetails(ProductDetails productDetails);
+
+    // El tipo de entrada aquí DEBE ser el mismo que el de la lista en ProductDetails
+    @Mapping(target = "stock", source = "stockQuantity")
+    @Mapping(target = "price", source = "priceAdjustment")
+    @Mapping(target = "sizeName", source = "size.name")
+    @Mapping(target = "colorName", source = "color.name")
+    @Mapping(target = "colorHex", source = "color.hexCode")
+    @Mapping(target = "isNew", ignore = true) // O tu lógica para calcularlo
+    ProductVariantCardResponse toVariantResponse(ProductVariantDetails variant);
+
     @Mapping(source = "categoryId", target = "categoryId")
     @Mapping(source = "basePrice", target = "basePrice")
     CreateProductCommand toCommand(CreateProductRequest productRequest);
-
-    @Mapping(source = "category.name", target = "categoryName")
-    @Mapping(target = "variants", source = "productVariants")
-    ProductDetailResponse toResponseDetails(ProductDetails productDetails);
 
     @Mapping(target = "categoryName", source = "category.name")
     @Mapping(target = "variantsCount", expression = "java(calculateVariantsCount(domain.productVariants()))")
@@ -34,7 +44,7 @@ public interface ProductRestMapper {
     ProductCardResponse toResponseCard(ProductDetails domain);
 
     // Lógica corregida: Contar solo los DISPONIBLES
-    default Integer calculateVariantsCount(List<ProductVariant> variants) {
+    default Integer calculateVariantsCount(List<ProductVariantDetails> variants) {
         if (variants == null) return 0;
         return (int) variants.stream()
                 .filter(v -> v.status() == InventoryStatus.AVAILABLE) // Solo disponibles

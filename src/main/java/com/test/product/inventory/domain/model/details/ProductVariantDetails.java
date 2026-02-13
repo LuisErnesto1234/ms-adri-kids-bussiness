@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
-public record ProductVariantDetails(UUID id, Product product, Color color, Size size, String Sku, Integer stockQuantity,
-                                    BigDecimal priceAdjustment, String imageUrl, Instant createdAt, Instant updatedAt,
-                                    InventoryStatus status) {
+public record ProductVariantDetails(UUID id, Product product, Color color, Size size, String sku,
+                                    Integer stockQuantity, BigDecimal priceAdjustment, String imageUrl,
+                                    Instant createdAt, Instant updatedAt, InventoryStatus status) {
 }

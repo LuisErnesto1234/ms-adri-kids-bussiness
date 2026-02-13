@@ -5,7 +5,10 @@ import com.test.product.inventory.domain.exception.NotFoundException;
 import com.test.product.inventory.domain.model.Color;
 import com.test.product.inventory.domain.port.out.ColorRepositoryPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
@@ -14,7 +17,11 @@ public class UpdateColorHandler implements Command.Handler<UpdateColorCommand, C
 
     private final ColorRepositoryPort colorRepositoryPort;
 
-    @Transactional
+    @Transactional(timeout = 10, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+    @Caching(evict = {
+            @CacheEvict(value = "color", key = "'color:' + #command.id", condition = "#result != null"),
+            @CacheEvict(value = "color_page",  allEntries = true, condition = "#result != null")
+    })
     @Override
     public Color handle(UpdateColorCommand command) {
         Color colorFind = colorRepositoryPort.findById(command.id())

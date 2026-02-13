@@ -1,16 +1,22 @@
-package com.test.product.inventory.infrastructure.adapter.in.dto.response;
+package com.test.product.inventory.infrastructure.adapter.in.dto.response.product;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import com.test.product.inventory.domain.enums.InventoryStatus;
+
+import lombok.Builder;
+import lombok.extern.jackson.Jacksonized;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Builder
+@Jacksonized
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public record ProductCardResponse(UUID id, String categoryName, String name,
                                   BigDecimal basePrice, String imageUrl,
                                   Integer variantsCount,

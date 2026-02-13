@@ -1,6 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter;
 
 import com.test.product.inventory.domain.model.ProductVariant;
+import com.test.product.inventory.domain.model.details.ProductVariantDetails;
 import com.test.product.inventory.domain.port.out.ProductVariantRepositoryPort;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.entity.ProductVariantEntity;
 import com.test.product.inventory.infrastructure.adapter.out.persistence.mapper.ProductVariantEntityMapper;
@@ -25,10 +26,7 @@ public class ProductVariantPersistenceAdapter implements ProductVariantRepositor
     @Override
     public ProductVariant save(ProductVariant productVariant) {
         ProductVariantEntity productVariantEntity = productVariantEntityMapper.toEntity(productVariant);
-        log.info("Saving product variant entity: {}", productVariantEntity);
-
         productVariantJpaRepository.save(productVariantEntity);
-
         return productVariantEntityMapper.toDomain(productVariantEntity);
     }
 
@@ -47,5 +45,11 @@ public class ProductVariantPersistenceAdapter implements ProductVariantRepositor
     public Page<ProductVariant> findAll(Pageable pageable) {
         return productVariantJpaRepository.findAllProductVariantWithColorWithSizes(pageable)
                 .map(productVariantEntityMapper::toDomain);
+    }
+
+    @Override
+    public Optional<ProductVariantDetails> findProductVariantDetailById(UUID id) {
+        return productVariantJpaRepository.findById(id)
+                .map(productVariantEntityMapper::toDetails);
     }
 }

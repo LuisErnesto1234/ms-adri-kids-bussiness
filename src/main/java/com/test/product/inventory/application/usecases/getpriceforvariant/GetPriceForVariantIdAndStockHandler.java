@@ -5,6 +5,8 @@ import com.test.product.inventory.domain.exception.InsufficientStockException;
 import com.test.product.inventory.domain.port.out.ProductVariantRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -14,6 +16,7 @@ public class GetPriceForVariantIdAndStockHandler implements Command.Handler<GetP
 
     private final ProductVariantRepositoryPort productVariantRepositoryPort;
 
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, timeout = 15)
     @Override
     public BigDecimal handle(GetPriceForVariantIdAndStockCommand command) {
         var productVariant = productVariantRepositoryPort.findById(command.variantId())

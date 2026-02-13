@@ -1,7 +1,7 @@
 package com.test.product.inventory.infrastructure.adapter.in.mapper;
 
 import com.test.product.inventory.domain.model.Color;
-import com.test.product.inventory.infrastructure.adapter.in.dto.response.ColorSummaryResponse;
+import com.test.product.inventory.infrastructure.adapter.in.dto.response.color.ColorSummaryResponse;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;

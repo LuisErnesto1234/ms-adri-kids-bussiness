@@ -1,4 +1,4 @@
-package com.test.product.inventory.infrastructure.adapter.in.dto.response;
+package com.test.product.inventory.infrastructure.adapter.in.dto.response.productvariant;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;

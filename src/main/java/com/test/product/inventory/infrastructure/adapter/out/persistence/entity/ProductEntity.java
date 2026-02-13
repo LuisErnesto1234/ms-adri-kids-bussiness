@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
@@ -38,12 +39,18 @@ public class ProductEntity {
     @Column(name = "image_url", length = 500)
     private String imageUrl;
 
+    @Formula("(SELECT COUNT(v.id) FROM product_variants v WHERE v.product_id = id)")
+    private Integer variantCount;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
     
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductVariantEntity> variants;
+
+    @Column(name = "is_featured", columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean isFeatured;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
@@ -55,7 +62,8 @@ public class ProductEntity {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private InventoryStatus status;
+    @Builder.Default
+    private InventoryStatus status = InventoryStatus.AVAILABLE;
 
     @Override
     public boolean equals(Object o) {

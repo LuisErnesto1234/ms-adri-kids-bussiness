@@ -2,11 +2,11 @@ package com.adri.kids.inventory.application.command.product.createproduct;
 
 import an.awesome.pipelinr.Command;
 
-import com.adri.kids.inventory.domain.exception.NotFoundException;
-import com.adri.kids.inventory.domain.model.Category;
+import com.adri.kids.shared.domain.exception.NotFoundException;
+import com.adri.kids.catalog.domain.model.Category;
 import com.adri.kids.inventory.domain.model.Product;
 import com.adri.kids.inventory.domain.model.details.ProductDetails;
-import com.adri.kids.inventory.domain.port.out.CategoryRepositoryPort;
+import com.adri.kids.catalog.domain.port.out.CategoryRepositoryPort;
 import com.adri.kids.inventory.domain.port.out.ProductRepositoryPort;
 
 import lombok.RequiredArgsConstructor;

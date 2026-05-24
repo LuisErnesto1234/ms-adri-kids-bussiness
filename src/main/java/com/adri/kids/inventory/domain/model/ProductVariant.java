@@ -1,6 +1,6 @@
 package com.adri.kids.inventory.domain.model;
 
-import com.adri.kids.inventory.domain.enums.InventoryStatus;
+import com.adri.kids.shared.domain.enums.InventoryStatus;
 import com.adri.kids.inventory.domain.exception.InsufficientStockException;
 import lombok.extern.slf4j.Slf4j;
 

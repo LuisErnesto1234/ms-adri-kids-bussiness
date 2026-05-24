@@ -1,7 +1,7 @@
 package com.adri.kids.inventory.application.command.product.createproduct;
 
 import an.awesome.pipelinr.Command;
-import com.adri.kids.inventory.domain.enums.InventoryStatus;
+import com.adri.kids.shared.domain.enums.InventoryStatus;
 import com.adri.kids.inventory.domain.model.details.ProductDetails;
 
 import java.math.BigDecimal;

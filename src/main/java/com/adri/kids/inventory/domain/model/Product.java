@@ -1,6 +1,6 @@
 package com.adri.kids.inventory.domain.model;
 
-import com.adri.kids.inventory.domain.enums.InventoryStatus;
+import com.adri.kids.shared.domain.enums.InventoryStatus;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;

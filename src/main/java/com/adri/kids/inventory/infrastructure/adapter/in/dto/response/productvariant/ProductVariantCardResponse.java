@@ -2,7 +2,7 @@ package com.adri.kids.inventory.infrastructure.adapter.in.dto.response.productva
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.adri.kids.inventory.domain.enums.InventoryStatus;
+import com.adri.kids.shared.domain.enums.InventoryStatus;
 
 import lombok.Builder;
 

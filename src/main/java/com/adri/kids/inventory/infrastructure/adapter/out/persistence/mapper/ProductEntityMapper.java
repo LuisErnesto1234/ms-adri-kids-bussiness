@@ -3,7 +3,7 @@ package com.adri.kids.inventory.infrastructure.adapter.out.persistence.mapper;
 import com.adri.kids.inventory.domain.model.Product;
 import com.adri.kids.inventory.domain.model.details.ProductDetails;
 import com.adri.kids.inventory.domain.model.details.ProductVariantDetails;
-import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.CategoryEntity;
+import com.adri.kids.catalog.infrastructure.adapter.out.persistence.entity.CategoryEntity;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.ProductEntity;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.ProductVariantEntity;
 

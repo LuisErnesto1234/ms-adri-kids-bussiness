@@ -1,7 +1,7 @@
 package com.adri.kids.inventory.application.command.product.createproductvariant;
 
 import an.awesome.pipelinr.Command;
-import com.adri.kids.inventory.domain.enums.InventoryStatus;
+import com.adri.kids.shared.domain.enums.InventoryStatus;
 import com.adri.kids.inventory.domain.model.details.ProductVariantDetails;
 
 import java.math.BigDecimal;

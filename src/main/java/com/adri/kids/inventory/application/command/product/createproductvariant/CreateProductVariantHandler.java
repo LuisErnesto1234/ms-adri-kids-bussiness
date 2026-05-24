@@ -1,15 +1,15 @@
 package com.adri.kids.inventory.application.command.product.createproductvariant;
 
-import com.adri.kids.inventory.domain.exception.NotFoundException;
-import com.adri.kids.inventory.domain.model.Color;
+import com.adri.kids.shared.domain.exception.NotFoundException;
+import com.adri.kids.catalog.domain.model.Color;
 import com.adri.kids.inventory.domain.model.Product;
 import com.adri.kids.inventory.domain.model.ProductVariant;
-import com.adri.kids.inventory.domain.model.Size;
+import com.adri.kids.catalog.domain.model.Size;
 import com.adri.kids.inventory.domain.model.details.ProductVariantDetails;
-import com.adri.kids.inventory.domain.port.out.ColorRepositoryPort;
+import com.adri.kids.catalog.domain.port.out.ColorRepositoryPort;
 import com.adri.kids.inventory.domain.port.out.ProductRepositoryPort;
 import com.adri.kids.inventory.domain.port.out.ProductVariantRepositoryPort;
-import com.adri.kids.inventory.domain.port.out.SizeRepositoryPort;
+import com.adri.kids.catalog.domain.port.out.SizeRepositoryPort;
 
 import lombok.RequiredArgsConstructor;
 

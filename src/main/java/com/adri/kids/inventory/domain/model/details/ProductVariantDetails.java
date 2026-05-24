@@ -1,9 +1,9 @@
 package com.adri.kids.inventory.domain.model.details;
 
-import com.adri.kids.inventory.domain.enums.InventoryStatus;
-import com.adri.kids.inventory.domain.model.Color;
+import com.adri.kids.shared.domain.enums.InventoryStatus;
+import com.adri.kids.catalog.domain.model.Color;
 import com.adri.kids.inventory.domain.model.Product;
-import com.adri.kids.inventory.domain.model.Size;
+import com.adri.kids.catalog.domain.model.Size;
 
 import java.math.BigDecimal;
 import java.time.Instant;

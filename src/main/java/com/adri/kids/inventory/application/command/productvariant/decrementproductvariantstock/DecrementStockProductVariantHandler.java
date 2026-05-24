@@ -2,7 +2,7 @@ package com.adri.kids.inventory.application.command.productvariant.decrementprod
 
 import an.awesome.pipelinr.Command;
 
-import com.adri.kids.inventory.domain.exception.NotFoundException;
+import com.adri.kids.shared.domain.exception.NotFoundException;
 import com.adri.kids.inventory.domain.model.ProductVariant;
 import com.adri.kids.inventory.domain.port.out.ProductVariantRepositoryPort;
 

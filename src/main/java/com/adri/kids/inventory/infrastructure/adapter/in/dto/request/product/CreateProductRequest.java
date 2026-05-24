@@ -1,7 +1,7 @@
 package com.adri.kids.inventory.infrastructure.adapter.in.dto.request.product;
 
 import com.adri.kids.inventory.application.command.product.createproduct.CreateProductCommand;
-import com.adri.kids.inventory.domain.enums.InventoryStatus;
+import com.adri.kids.shared.domain.enums.InventoryStatus;
 
 import java.math.BigDecimal;
 import java.util.UUID;

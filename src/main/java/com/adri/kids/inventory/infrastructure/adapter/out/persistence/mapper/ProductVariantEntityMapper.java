@@ -2,10 +2,10 @@ package com.adri.kids.inventory.infrastructure.adapter.out.persistence.mapper;
 
 import com.adri.kids.inventory.domain.model.ProductVariant;
 import com.adri.kids.inventory.domain.model.details.ProductVariantDetails;
-import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.ColorEntity;
+import com.adri.kids.catalog.infrastructure.adapter.out.persistence.entity.ColorEntity;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.ProductEntity;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.ProductVariantEntity;
-import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.SizeEntity;
+import com.adri.kids.catalog.infrastructure.adapter.out.persistence.entity.SizeEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

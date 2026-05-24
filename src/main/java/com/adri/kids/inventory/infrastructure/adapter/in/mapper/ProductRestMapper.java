@@ -1,7 +1,7 @@
 package com.adri.kids.inventory.infrastructure.adapter.in.mapper;
 
 import com.adri.kids.inventory.application.command.product.createproduct.CreateProductCommand;
-import com.adri.kids.inventory.domain.enums.InventoryStatus;
+import com.adri.kids.shared.domain.enums.InventoryStatus;
 import com.adri.kids.inventory.domain.model.Product;
 import com.adri.kids.inventory.domain.model.details.ProductDetails;
 import com.adri.kids.inventory.domain.model.details.ProductVariantDetails;

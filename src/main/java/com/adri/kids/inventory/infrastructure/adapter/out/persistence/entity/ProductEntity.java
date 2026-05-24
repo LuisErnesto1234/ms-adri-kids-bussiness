@@ -1,6 +1,6 @@
 package com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity;
 
-import com.adri.kids.inventory.domain.enums.InventoryStatus;
+import com.adri.kids.shared.domain.enums.InventoryStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

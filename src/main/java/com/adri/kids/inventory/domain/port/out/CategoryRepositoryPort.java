@@ -1,6 +1,7 @@
 package com.adri.kids.inventory.domain.port.out;
 
 import com.adri.kids.inventory.domain.model.Category;
+import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.category.filter.CategoryFilterRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,8 +15,6 @@ public interface CategoryRepositoryPort {
 
     Category findByIdOrThrow(UUID id);
 
-    Optional<Category> findByName(String name);
-
     Page<Category> findAll(Pageable pageable);
 
     boolean existsByName(String name);
@@ -23,4 +22,6 @@ public interface CategoryRepositoryPort {
     boolean existsByNameAndIdNot(String name, UUID id);
 
     void deleteById(UUID id);
+
+    Page<Category> findAllByFilter(Pageable pageable, CategoryFilterRequest filterRequest);
 }

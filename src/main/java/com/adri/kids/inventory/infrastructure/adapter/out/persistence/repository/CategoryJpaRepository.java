@@ -2,15 +2,14 @@ package com.adri.kids.inventory.infrastructure.adapter.out.persistence.repositor
 
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.CategoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface CategoryJpaRepository extends JpaRepository<CategoryEntity, UUID> {
-
-    Optional<CategoryEntity> findByName(String name);
+public interface CategoryJpaRepository extends JpaRepository<CategoryEntity, UUID>,
+        JpaSpecificationExecutor<CategoryEntity> {
 
     boolean existsByName(String name);
 

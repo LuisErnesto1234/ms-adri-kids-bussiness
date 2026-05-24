@@ -2,50 +2,37 @@ package com.adri.kids.inventory.application.querys.category.getcategories;
 
 import an.awesome.pipelinr.Command;
 
+import com.adri.kids.inventory.domain.model.Category;
 import com.adri.kids.inventory.domain.port.out.CategoryRepositoryPort;
-import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.category.CategoryCardResponse;
-import com.adri.kids.inventory.infrastructure.adapter.in.mapper.CategoryRestMapper;
 import com.adri.kids.shared.domain.dtos.PagedResult;
 
+import com.adri.kids.shared.domain.mapper.PageMapper;
+
+import com.adri.kids.shared.utils.ConstantUtil;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-
 @Component
 @RequiredArgsConstructor
 public class GetCategoriesHandler implements Command.Handler<GetCategoriesQuery,
-        PagedResult<CategoryCardResponse>> {
+        PagedResult<Category>> {
 
     private final CategoryRepositoryPort categoryRepositoryPort;
-    private final CategoryRestMapper categoryRestMapper;
 
-    @Transactional(readOnly = true, isolation = Isolation.READ_UNCOMMITTED, timeout = 10)
-    @Override
-    @Cacheable(
-            value = "categories_page",
-            key = "'category:' + #query.pageable().pageNumber + '-' + #query.pageable().pageSize + '-' + (#query.filterText ?: 'empty') + '-' + #query.pageable().sort",
-            unless = "#result.content.empty"
+    @Transactional(
+            readOnly = true,
+            isolation = Isolation.READ_COMMITTED,
+            timeout = ConstantUtil.TIME_OUT_TRANSACTION
     )
-    public PagedResult<CategoryCardResponse> handle(GetCategoriesQuery query) {
-
-        var domainPage = categoryRepositoryPort.findAll(query.pageable());
-
-        var categoriesMutable = domainPage.stream()
-                .map(categoryRestMapper::toResponse)
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        return new PagedResult<>(
-                categoriesMutable,
-                query.pageable().getPageNumber(),
-                query.pageable().getPageSize(),
-                domainPage.getTotalElements(),
-                domainPage.getTotalPages()
-        );
+    @Override
+    public PagedResult<Category> handle(GetCategoriesQuery query) {
+        var pageable = Pageable.ofSize(query.size()).withPage(query.page());
+        var categoryFoundsPage =
+                categoryRepositoryPort.findAllByFilter(pageable, query.filterRequest());
+        return PageMapper.fromPage(categoryFoundsPage);
     }
 }

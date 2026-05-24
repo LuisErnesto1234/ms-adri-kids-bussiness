@@ -2,8 +2,10 @@ package com.adri.kids.inventory.infrastructure.adapter;
 
 import com.adri.kids.inventory.domain.model.Category;
 import com.adri.kids.inventory.domain.port.out.CategoryRepositoryPort;
+import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.category.filter.CategoryFilterRequest;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.mapper.CategoryEntityMapper;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.repository.CategoryJpaRepository;
+import com.adri.kids.inventory.infrastructure.adapter.out.persistence.specification.CategorySpecification;
 import com.adri.kids.shared.exceptions.NotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -43,11 +45,6 @@ public class CategoryPersistenceAdapter implements CategoryRepositoryPort {
     }
 
     @Override
-    public Optional<Category> findByName(String name) {
-        return categoryJpaRepository.findByName(name).map(categoryEntityMapper::toDomain);
-    }
-
-    @Override
     public Page<Category> findAll(Pageable pageable) {
         return categoryJpaRepository.findAll(pageable)
                 .map(categoryEntityMapper::toDomain);
@@ -66,5 +63,12 @@ public class CategoryPersistenceAdapter implements CategoryRepositoryPort {
     @Override
     public void deleteById(UUID id) {
         categoryJpaRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Category> findAllByFilter(Pageable pageable, CategoryFilterRequest filterRequest) {
+        var categorySpecification = CategorySpecification.byFilter(filterRequest);
+        return categoryJpaRepository.findAll(categorySpecification, pageable)
+                .map(categoryEntityMapper::toDomain);
     }
 }

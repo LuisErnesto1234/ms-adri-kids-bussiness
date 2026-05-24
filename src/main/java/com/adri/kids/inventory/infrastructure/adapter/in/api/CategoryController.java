@@ -5,10 +5,11 @@ import an.awesome.pipelinr.Pipeline;
 import com.adri.kids.inventory.application.command.category.activatecategory.ActivateCategoryCommand;
 import com.adri.kids.inventory.application.command.category.deletecategory.DeleteCategoryCommand;
 import com.adri.kids.inventory.application.querys.category.getcategories.GetCategoriesQuery;
-import com.adri.kids.inventory.application.querys.category.getcategoriesbyid.GetCategoryByIdQuery;
+import com.adri.kids.inventory.application.querys.category.getcategorybyid.GetCategoryByIdQuery;
 import com.adri.kids.inventory.application.command.category.deactivatecategory.DeactivateCategoryCommand;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.category.CreateCategoryRequest;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.category.UpdateCategoryRequest;
+import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.category.filter.CategoryFilterRequest;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.category.CategoryCardResponse;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.category.CategoryDetailResponse;
 import com.adri.kids.inventory.infrastructure.adapter.in.mapper.CategoryRestMapper;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/api/v1/category")
+@RequestMapping(path = "/api/v1/category")
 @RequiredArgsConstructor
 public class CategoryController {
 
@@ -56,10 +57,14 @@ public class CategoryController {
 
     @GetMapping(path = "/find-all")
     public ResponseEntity<ApiResponse<PagedResult<CategoryCardResponse>>> findAllCategories(@PageableDefault Pageable pageable,
-                                                                                            @RequestParam(required = false) String search) {
-        var query = new GetCategoriesQuery(pageable, search);
+                                                                                            @ModelAttribute CategoryFilterRequest filterRequest) {
+        var query = new GetCategoriesQuery(pageable.getPageNumber(), pageable.getPageSize(), filterRequest);
 
-        var response = query.execute(pipeline);
+        var result = query.execute(pipeline);
+        var responseCategory = result.getContent().stream().map(categoryRestMapper::toResponse).toList();
+        var response = new PagedResult<>(responseCategory,
+                result.getPage(), result.getSize(),
+                result.getTotalElements(), result.getTotalPages());
 
         return ResponseEntity.ok(ApiResponse.buildOk(response));
     }
@@ -67,8 +72,8 @@ public class CategoryController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<CategoryDetailResponse>> findByIdCategory(@PathVariable UUID id) {
         var command = new GetCategoryByIdQuery(id);
-
-        var response = command.execute(pipeline);
+        var result = command.execute(pipeline);
+        var response = categoryRestMapper.toResponseDetail(result);
 
         return ResponseEntity.ok(ApiResponse.buildOk(response));
     }

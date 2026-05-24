@@ -1,4 +1,4 @@
-package com.adri.kids.inventory.domain.model;
+package com.adri.kids.content.domain.model;
 
 import com.adri.kids.shared.domain.enums.GeneralStatus;
 

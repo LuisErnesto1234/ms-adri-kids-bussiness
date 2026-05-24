@@ -1,9 +1,9 @@
-package com.adri.kids.inventory.infrastructure.adapter;
+package com.adri.kids.content.infrastructure.adapter.out.persistence;
 
-import com.adri.kids.inventory.domain.model.HeroSection;
-import com.adri.kids.inventory.domain.port.out.HeroSectionRepositoryPort;
-import com.adri.kids.inventory.infrastructure.adapter.out.persistence.mapper.HeroSectionEntityMapper;
-import com.adri.kids.inventory.infrastructure.adapter.out.persistence.repository.HeroSectionJpaRepository;
+import com.adri.kids.content.domain.model.HeroSection;
+import com.adri.kids.content.domain.port.out.HeroSectionRepositoryPort;
+import com.adri.kids.content.infrastructure.adapter.out.persistence.mapper.HeroSectionEntityMapper;
+import com.adri.kids.content.infrastructure.adapter.out.persistence.repository.HeroSectionJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

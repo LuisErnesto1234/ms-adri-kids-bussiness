@@ -1,6 +1,6 @@
-package com.adri.kids.inventory.domain.port.out;
+package com.adri.kids.content.domain.port.out;
 
-import com.adri.kids.inventory.domain.model.HeroSection;
+import com.adri.kids.content.domain.model.HeroSection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

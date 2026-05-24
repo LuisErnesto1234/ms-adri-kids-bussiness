@@ -1,4 +1,4 @@
-package com.adri.kids.inventory.application.command.herosection.createheresection;
+package com.adri.kids.content.application.herosection.command;
 
 import an.awesome.pipelinr.Command;
 import com.adri.kids.shared.domain.enums.GeneralStatus;

@@ -1,4 +1,4 @@
-package com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity;
+package com.adri.kids.content.infrastructure.adapter.out.persistence.entity;
 
 import com.adri.kids.shared.domain.enums.GeneralStatus;
 import jakarta.persistence.*;

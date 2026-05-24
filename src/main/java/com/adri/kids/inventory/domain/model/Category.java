@@ -22,33 +22,8 @@ public record Category(UUID id,
                        List<Product> products) {
 
     public Category {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot be null or blank.");
-        }
-        if (slug == null || slug.isBlank()) {
-            throw new IllegalArgumentException("Slug cannot be null or blank.");
-        }
-        if (descriptionShort == null || descriptionShort.isBlank()) {
-            throw new IllegalArgumentException("Short description cannot be null or blank.");
-        }
-
-        if (descriptionLong == null || descriptionLong.isBlank()) {
-            descriptionLong = this.descriptionShort();
-        }
-
-        if (numberOfOrder < 0) {
-            throw new IllegalArgumentException("Order number must be non-negative.");
-        }
         if (status == null) {
             status = GeneralStatus.ACTIVE;
-        }
-
-        if (colorCode == null) {
-            throw new IllegalArgumentException("Color code of theme cannot be null.");
-        }
-
-        if (products == null) {
-            products = new ArrayList<>();
         }
     }
 

@@ -1,11 +1,11 @@
-package com.adri.kids.inventory.infrastructure.adapter.in.api;
+package com.adri.kids.content.infrastructure.adapter.in.api;
 
 import an.awesome.pipelinr.Pipeline;
 
-import com.adri.kids.inventory.application.querys.herosection.getherosectionbyid.GetHeroSectionByIdQuery;
-import com.adri.kids.inventory.application.querys.herosection.getherosections.GetHeroSectionsQuery;
-import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.CreateHeroSectionRequest;
-import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.herosection.HeroSectionSummaryResponse;
+import com.adri.kids.content.application.herosection.query.GetHeroSectionByIdQuery;
+import com.adri.kids.content.application.herosection.query.GetHeroSectionsQuery;
+import com.adri.kids.content.infrastructure.adapter.in.dto.request.CreateHeroSectionRequest;
+import com.adri.kids.content.infrastructure.adapter.in.dto.response.HeroSectionSummaryResponse;
 import com.adri.kids.shared.domain.dtos.ApiResponse;
 
 import com.adri.kids.shared.domain.dtos.PagedResult;

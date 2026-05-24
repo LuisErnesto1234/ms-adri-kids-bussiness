@@ -2,6 +2,7 @@ package com.adri.kids.inventory.domain.port.out;
 
 import com.adri.kids.inventory.domain.model.Category;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.category.filter.CategoryFilterRequest;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

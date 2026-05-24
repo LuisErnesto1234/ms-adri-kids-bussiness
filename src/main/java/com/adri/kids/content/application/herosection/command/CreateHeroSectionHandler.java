@@ -1,10 +1,10 @@
-package com.adri.kids.inventory.application.command.herosection.createheresection;
+package com.adri.kids.content.application.herosection.command;
 
 import org.springframework.cache.annotation.CacheEvict;
 import an.awesome.pipelinr.Command;
 
-import com.adri.kids.inventory.domain.model.HeroSection;
-import com.adri.kids.inventory.domain.port.out.HeroSectionRepositoryPort;
+import com.adri.kids.content.domain.model.HeroSection;
+import com.adri.kids.content.domain.port.out.HeroSectionRepositoryPort;
 
 import lombok.RequiredArgsConstructor;
 

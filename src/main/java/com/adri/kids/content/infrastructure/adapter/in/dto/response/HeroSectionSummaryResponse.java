@@ -1,4 +1,4 @@
-package com.adri.kids.inventory.infrastructure.adapter.in.dto.response.herosection;
+package com.adri.kids.content.infrastructure.adapter.in.dto.response;
 
 import com.fasterxml.jackson.annotation.*;
 import com.adri.kids.shared.domain.enums.GeneralStatus;

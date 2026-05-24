@@ -1,6 +1,6 @@
-package com.adri.kids.inventory.infrastructure.adapter.out.persistence.repository;
+package com.adri.kids.content.infrastructure.adapter.out.persistence.repository;
 
-import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.HeroSectionEntity;
+import com.adri.kids.content.infrastructure.adapter.out.persistence.entity.HeroSectionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

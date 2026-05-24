@@ -1,7 +1,7 @@
-package com.adri.kids.inventory.infrastructure.adapter.in.mapper;
+package com.adri.kids.content.infrastructure.adapter.in.mapper;
 
-import com.adri.kids.inventory.domain.model.HeroSection;
-import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.herosection.HeroSectionSummaryResponse;
+import com.adri.kids.content.domain.model.HeroSection;
+import com.adri.kids.content.infrastructure.adapter.in.dto.response.HeroSectionSummaryResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 

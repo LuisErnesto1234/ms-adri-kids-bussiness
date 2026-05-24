@@ -1,7 +1,7 @@
-package com.adri.kids.inventory.infrastructure.adapter.out.persistence.mapper;
+package com.adri.kids.content.infrastructure.adapter.out.persistence.mapper;
 
-import com.adri.kids.inventory.domain.model.HeroSection;
-import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.HeroSectionEntity;
+import com.adri.kids.content.domain.model.HeroSection;
+import com.adri.kids.content.infrastructure.adapter.out.persistence.entity.HeroSectionEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

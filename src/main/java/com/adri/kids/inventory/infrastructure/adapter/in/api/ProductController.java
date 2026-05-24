@@ -4,6 +4,7 @@ import an.awesome.pipelinr.Pipeline;
 
 import com.adri.kids.inventory.application.querys.getproduct.GetProductsQuery;
 import com.adri.kids.inventory.application.querys.getproductbyid.GetProductByIdQuery;
+import com.adri.kids.inventory.application.querys.getproductsbycategoryid.GetProductsByCategoryIdQuery;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.CreateProductRequest;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.product.ProductCardResponse;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.product.ProductDetailResponse;
@@ -22,17 +23,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/api/v1/product")
+@RequestMapping(path = "/api/v1/product")
 @RequiredArgsConstructor
 public class ProductController {
 
     private final Pipeline pipeline;
     private final ProductRestMapper productRestMapper;
 
-    @PostMapping(value = "/create")
+    @PostMapping(path = "/create")
     public ResponseEntity<ApiResponse<ProductCardResponse>> createProduct(@Valid @RequestBody CreateProductRequest request) {
         var command = request.toCommand();
         var domainResponse = command.execute(pipeline);
@@ -40,7 +42,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.buildCreated(response));
     }
 
-    @GetMapping(value = "/find-all")
+    @GetMapping(path = "/find-all")
     public ResponseEntity<ApiResponse<PagedResult<ProductCardResponse>>> findAllProducts(
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             @RequestParam(required = false) String search) {
@@ -53,10 +55,28 @@ public class ProductController {
 
     }
 
-    @GetMapping(value = "/find-id/{id}")
+    @GetMapping(path = "/find-id/{id}")
     public ResponseEntity<ApiResponse<ProductDetailResponse>> findProductById(@PathVariable UUID id) {
         var query = new GetProductByIdQuery(id);
         var responseDomain = query.execute(pipeline);
         return ResponseEntity.ok(ApiResponse.buildOk(responseDomain));
+    }
+
+    @GetMapping(path = "/find-all/{categoryId}/category")
+    public ResponseEntity<ApiResponse<PagedResult<ProductCardResponse>>> getAllProductsByCategory(@PathVariable UUID categoryId,
+                                                                                                  @PageableDefault Pageable pageable) {
+        var query = new GetProductsByCategoryIdQuery(categoryId, pageable.getPageNumber(), pageable.getPageSize());
+        var resultPage = query.execute(pipeline);
+        var productContentResponse = resultPage.getContent()
+                .stream()
+                .map(productRestMapper::toResponseCard)
+                .toList();
+        var pageProductResponse = new PagedResult<>(
+                productContentResponse,
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                resultPage.getTotalElements(),
+                resultPage.getTotalElements());
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.buildOk(pageProductResponse));
     }
 }

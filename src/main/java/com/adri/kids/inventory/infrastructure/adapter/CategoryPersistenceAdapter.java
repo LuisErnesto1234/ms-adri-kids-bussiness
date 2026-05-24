@@ -5,6 +5,7 @@ import com.adri.kids.inventory.domain.port.out.CategoryRepositoryPort;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.CategoryEntity;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.mapper.CategoryEntityMapper;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.repository.CategoryJpaRepository;
+import com.adri.kids.shared.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,13 @@ public class CategoryPersistenceAdapter implements CategoryRepositoryPort {
     }
 
     @Override
+    public Category findByIdOrThrow(UUID id) {
+        return categoryJpaRepository.findById(id)
+                .map(categoryEntityMapper::toDomain)
+                .orElseThrow(() -> new NotFoundException("Categoría no encontrada con id: " + id));
+    }
+
+    @Override
     public Optional<Category> findByName(String name) {
         return categoryJpaRepository.findByName(name).map(categoryEntityMapper::toDomain);
     }
@@ -41,5 +49,20 @@ public class CategoryPersistenceAdapter implements CategoryRepositoryPort {
     public Page<Category> findAll(Pageable pageable) {
         return categoryJpaRepository.findAll(pageable)
                 .map(categoryEntityMapper::toDomain);
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return categoryJpaRepository.existsByName(name);
+    }
+
+    @Override
+    public boolean existsByNameAndIdNot(String name, UUID id) {
+        return categoryJpaRepository.existsByNameAndIdNot(name, id);
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        categoryJpaRepository.deleteById(id);
     }
 }

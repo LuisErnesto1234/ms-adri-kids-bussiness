@@ -16,10 +16,9 @@ import java.util.UUID;
 public interface ProductJpaRepository extends JpaRepository<ProductEntity, UUID> {
 
     @Query(value = "SELECT p FROM ProductEntity p JOIN FETCH p.category",
-    countQuery = "SELECT COUNT(p) FROM ProductEntity p")
+            countQuery = "SELECT COUNT(p) FROM ProductEntity p")
     Page<ProductEntity> findAllWithCategory(Pageable pageable);
 
-    // Agregamos LEFT JOIN FETCH y DISTINCT
     @Query("SELECT p FROM ProductEntity p WHERE p.category.id = :categoryId")
     List<ProductEntity> findAllByCategoryId(@Param("categoryId") UUID categoryId);
 
@@ -30,4 +29,7 @@ public interface ProductJpaRepository extends JpaRepository<ProductEntity, UUID>
             "WHERE p.id = :id")
     Optional<ProductEntity> findProductDetailsById(@Param("id") UUID id);
 
+    @Query(value = "SELECT p FROM ProductEntity p WHERE p.category.id IN :categoryId",
+            countQuery = "SELECT COUNT(p) FROM ProductEntity p WHERE p.category.id IN :categoryId")
+    Page<ProductEntity> findAllByCategoryIdPage(Pageable pageable, UUID categoryId);
 }

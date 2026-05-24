@@ -1,11 +1,7 @@
-package com.adri.kids.customers.utils;
+package com.adri.kids.shared.exceptions;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(String message) {
         super(message);
-    }
-
-    public NotFoundException(String message, Throwable e){
-        super(message, e);
     }
 }

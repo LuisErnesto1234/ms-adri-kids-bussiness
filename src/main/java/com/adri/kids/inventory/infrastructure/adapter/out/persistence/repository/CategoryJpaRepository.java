@@ -11,5 +11,8 @@ import java.util.UUID;
 public interface CategoryJpaRepository extends JpaRepository<CategoryEntity, UUID> {
 
     Optional<CategoryEntity> findByName(String name);
-    
+
+    boolean existsByName(String name);
+
+    boolean existsByNameAndIdNot(String name, UUID id);
 }

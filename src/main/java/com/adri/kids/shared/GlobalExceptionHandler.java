@@ -3,6 +3,8 @@ package com.adri.kids.shared;
 import com.adri.kids.shared.domain.dtos.ApiErrorResponse;
 import com.adri.kids.shared.domain.dtos.ApiResponse;
 
+import com.adri.kids.shared.exceptions.AlreadyExistException;
+import com.adri.kids.shared.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -50,10 +52,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class) // O tu CustomException.class
-    public ResponseEntity<ApiErrorResponse> handleBusinessRules(RuntimeException ex) {
+    public ResponseEntity<ApiErrorResponse> handleBusinessRules(IllegalArgumentException ex) {
         var errorResponse = new ApiErrorResponse(
                 HttpStatus.BAD_REQUEST.value(),
-                "Business Rule Violation",
+                "Error de entrada de datos.",
                 List.of(ex.getMessage()),
                 Instant.now()
         );
@@ -75,4 +77,26 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 
+    @ExceptionHandler(AlreadyExistException.class)
+    public ResponseEntity<ApiErrorResponse> handleAlreadyExistException(AlreadyExistException ex) {
+        var errorResponse = ApiErrorResponse.builder()
+                .statusCode(HttpStatus.CONFLICT.value())
+                .timestamp(Instant.now())
+                .message(ex.getMessage())
+                .details(List.of(ex.getMessage()))
+                .build();
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleNotFoundException(NotFoundException ex) {
+        var errorResponse = ApiErrorResponse.builder()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .timestamp(Instant.now())
+                .message(ex.getMessage())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
 }

@@ -1,20 +1,27 @@
 package com.adri.kids.inventory.infrastructure.adapter.in.dto.request;
 
-import com.adri.kids.inventory.application.command.createcategory.CreateCategoryCommand;
-import com.adri.kids.shared.domain.enums.GeneralStatus;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import com.adri.kids.inventory.application.command.category.createcategory.CreateCategoryCommand;
 
-public record CreateCategoryRequest(
-        @NotBlank(message = "El nombre es requerido")
-        @NotNull(message = "El nombre no puede ser nulo")
-        String name,
-        @NotNull(message = "La descripcion no puede ser un valor nulo")
-        String description,
-        String urlImage,
-        GeneralStatus status) {
+public record CreateCategoryRequest(String name,
+                                    String slug,
+                                    String descriptionShort,
+                                    String descriptionLong,
+                                    String urlImage,
+                                    int numberOfOrder,
+                                    String colorCode,
+                                    boolean isPublishImmediately,
+                                    boolean isShowMainMenu) {
 
     public CreateCategoryCommand toCommand() {
-        return new CreateCategoryCommand(this.name, this.description, this.urlImage, this.status);
+        return new CreateCategoryCommand(
+                this.name,
+                this.slug,
+                this.descriptionShort,
+                this.descriptionLong,
+                this.urlImage,
+                this.numberOfOrder,
+                this.colorCode,
+                this.isPublishImmediately,
+                this.isShowMainMenu);
     }
 }

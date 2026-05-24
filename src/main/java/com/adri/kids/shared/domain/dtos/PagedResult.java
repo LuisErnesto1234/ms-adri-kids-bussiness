@@ -21,14 +21,18 @@ public class PagedResult<T> implements Serializable {
     private int page;
     private int size;
     private long totalElements;
-    private int totalPages;
+    private long totalPages;
 
     @SuppressWarnings("java:S1319")
-    public PagedResult(ArrayList<T> content, int page, int size, long totalElements, int totalPages) {
-        this.content = new ArrayList<>(content); // Asegura mutabilidad
+    public PagedResult(ArrayList<T> content, int page, int size, long totalElements, long totalPages) {
+        this.content = new ArrayList<>(content);
         this.page = page;
         this.size = size;
         this.totalElements = totalElements;
         this.totalPages = totalPages;
+    }
+
+    public PagedResult<T> toPagedResult(List<T> content) {
+        return new PagedResult<>(content, page, size, totalElements, totalPages);
     }
 }

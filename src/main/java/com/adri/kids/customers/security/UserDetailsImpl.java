@@ -1,9 +1,13 @@
 package com.adri.kids.customers.security;
 
+import com.adri.kids.customers.dto.enums.Status;
 import com.adri.kids.customers.entity.CustomerEntity;
 import com.adri.kids.customers.entity.RoleEntity;
+
 import lombok.RequiredArgsConstructor;
+
 import org.jspecify.annotations.Nullable;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,13 +41,11 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public @Nullable String getPassword() {
-        // Suponiendo que tu entidad Customer tiene un método getPassword().
         return customer.getPassword();
     }
 
     @Override
     public @Nullable String getUsername() {
-        // Suponiendo que usas el email como username.
         return customer.getEmail();
     }
 
@@ -64,6 +66,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return customer.getStatus() == Status.ACTIVE;
     }
 }

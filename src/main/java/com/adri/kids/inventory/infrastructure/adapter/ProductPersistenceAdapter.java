@@ -67,4 +67,17 @@ public class ProductPersistenceAdapter implements ProductRepositoryPort {
         return productJpaRepository.findProductDetailsById(id)
                 .map(productEntityMapper::toDetails);
     }
+
+    @Override
+    public List<Product> findAllByIds(List<UUID> productsIds) {
+        return productJpaRepository.findAllById(productsIds)
+                .stream().map(productEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<Product> findAllByCategoryIdPage(Pageable pageable, UUID categoryId) {
+        return productJpaRepository.findAllByCategoryIdPage(pageable, categoryId)
+                .map(productEntityMapper::toDomain);
+    }
 }

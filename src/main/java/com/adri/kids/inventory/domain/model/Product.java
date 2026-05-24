@@ -10,10 +10,17 @@ import java.util.List;
 import java.util.UUID;
 
 @Slf4j
-public record Product(UUID id, UUID categoryId, String name, String description,
-                      BigDecimal basePrice, String imageUrl,
-                      List<ProductVariant> productVariants, Integer countVariants,
-                      Boolean isFeatured, Instant createdAt, Instant updatedAt,
+public record Product(UUID id,
+                      UUID categoryId,
+                      String name,
+                      String description,
+                      BigDecimal basePrice,
+                      String imageUrl,
+                      List<ProductVariant> productVariants,
+                      Integer countVariants,
+                      Boolean isFeatured,
+                      Instant createdAt,
+                      Instant updatedAt,
                       InventoryStatus status) {
 
     public boolean hasStock(UUID productVariantId, Integer quantityRequested) {

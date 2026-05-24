@@ -2,6 +2,7 @@ package com.adri.kids.inventory.infrastructure.adapter.in.mapper;
 
 import com.adri.kids.inventory.application.command.createproduct.CreateProductCommand;
 import com.adri.kids.inventory.domain.enums.InventoryStatus;
+import com.adri.kids.inventory.domain.model.Product;
 import com.adri.kids.inventory.domain.model.details.ProductDetails;
 import com.adri.kids.inventory.domain.model.details.ProductVariantDetails;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.CreateProductRequest;
@@ -43,17 +44,20 @@ public interface ProductRestMapper {
     @Mapping(target = "isNew", expression = "java(calculateIsNew(domain.createdAt()))")
     ProductCardResponse toResponseCard(ProductDetails domain);
 
-    // Lógica corregida: Contar solo los DISPONIBLES
     default Integer calculateVariantsCount(List<ProductVariantDetails> variants) {
         if (variants == null) return 0;
         return (int) variants.stream()
-                .filter(v -> v.status() == InventoryStatus.AVAILABLE) // Solo disponibles
-                .count(); // Mucho más rápido que toList().size()
+                .filter(v -> v.status() == InventoryStatus.AVAILABLE)
+                .count();
     }
 
-    // Lógica corregida: Solo los creados hace menos de 7 días
     default Boolean calculateIsNew(Instant createdAt) {
         if (createdAt == null) return false;
         return createdAt.isAfter(Instant.now().minus(7, ChronoUnit.DAYS));
     }
+
+    @Mapping(target = "variantsCount", expression = "java(calculateVariantsCount(product.productVariants()))")
+    @Mapping(target = "isNew", expression = "java(calculateIsNew(product.createdAt()))")
+    @Mapping(target = "categoryName", ignore = true)
+    ProductCardResponse toResponseCard(Product product);
 }

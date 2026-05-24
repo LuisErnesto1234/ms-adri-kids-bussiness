@@ -33,7 +33,7 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws RuntimeException {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws SecurityException {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Configuración CORS Correcta
@@ -61,7 +61,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws RuntimeException {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws SecurityException {
         return config.getAuthenticationManager();
     }
 

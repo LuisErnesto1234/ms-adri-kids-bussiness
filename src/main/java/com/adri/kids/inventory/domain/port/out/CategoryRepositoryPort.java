@@ -12,7 +12,15 @@ public interface CategoryRepositoryPort {
 
     Optional<Category> findById(UUID id);
 
+    Category findByIdOrThrow(UUID id);
+
     Optional<Category> findByName(String name);
 
     Page<Category> findAll(Pageable pageable);
+
+    boolean existsByName(String name);
+
+    boolean existsByNameAndIdNot(String name, UUID id);
+
+    void deleteById(UUID id);
 }

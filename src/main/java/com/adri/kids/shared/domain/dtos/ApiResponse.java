@@ -49,4 +49,12 @@ public class ApiResponse<T> implements Serializable {
                 .timeStamp(Instant.now())
                 .build();
     }
+
+    public static <T> ApiResponse<T> buildNoContent(String message) {
+        return ApiResponse.<T>builder()
+                .httpCode(204L)
+                .message(message)
+                .timeStamp(Instant.now())
+                .build();
+    }
 }

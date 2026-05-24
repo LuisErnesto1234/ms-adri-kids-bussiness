@@ -1,5 +1,6 @@
 package com.adri.kids.orders.infrastructure.adapter.out.persistence.repository;
 
+import com.adri.kids.orders.domain.enums.OrderStatus;
 import com.adri.kids.orders.infrastructure.adapter.out.persistence.entity.OrderEntity;
 
 import org.springframework.data.domain.Page;
@@ -15,8 +16,8 @@ import java.util.UUID;
 public interface OrderJpaRepository extends JpaRepository<OrderEntity, UUID> {
     @Query("""
                         SELECT o FROM OrderEntity o WHERE o.customerId = :customerId
-                        AND o.status = com.test.product.orders.domain.enums.OrderStatus.PENDING
-                        AND o.generalStatus = com.test.product.shared.domain.enums.GeneralStatus.ACTIVE
+                        AND o.status = com.adri.kids.orders.domain.enums.OrderStatus.PENDING
+                        AND o.generalStatus = com.adri.kids.shared.domain.enums.GeneralStatus.ACTIVE
             """)
     Optional<OrderEntity> findAllByCustomerWhereOrderNow(UUID costumerId);
 

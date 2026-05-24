@@ -19,10 +19,13 @@ public interface ProductRepositoryPort {
     //Query methods
     Page<Product> findAll(Pageable pageable);
 
-    // El método OPTIMIZADO para listados (Trae la categoría cargada)
     Page<ProductDetails> findAllWithCategory(Pageable pageable);
 
     List<Product> findAllByCategory(UUID categoryId);
 
     Optional<ProductDetails> findProductDetailsById(UUID id);
+
+    List<Product> findAllByIds(List<UUID> productsIds);
+
+    Page<Product> findAllByCategoryIdPage(Pageable pageable, UUID categoryId);
 }

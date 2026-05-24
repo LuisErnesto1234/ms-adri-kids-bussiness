@@ -1,13 +1,15 @@
 package com.adri.kids.customers.service.impl;
 
+import com.adri.kids.customers.dto.excepcion.NotFoundException;
 import com.adri.kids.customers.dto.reponse.AuthResponse;
 import com.adri.kids.customers.dto.request.LoginRequest;
 import com.adri.kids.customers.dto.request.RefreshTokenRequest;
 import com.adri.kids.customers.security.JwtService;
 import com.adri.kids.customers.security.RefreshTokenService;
 import com.adri.kids.customers.service.AuthService;
-import com.adri.kids.customers.utils.NotFoundException;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

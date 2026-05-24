@@ -2,10 +2,10 @@ package com.adri.kids.inventory.infrastructure.adapter.in.api;
 
 import an.awesome.pipelinr.Pipeline;
 
-import com.adri.kids.inventory.application.querys.getproduct.GetProductsQuery;
-import com.adri.kids.inventory.application.querys.getproductbyid.GetProductByIdQuery;
-import com.adri.kids.inventory.application.querys.getproductsbycategoryid.GetProductsByCategoryIdQuery;
-import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.CreateProductRequest;
+import com.adri.kids.inventory.application.querys.product.getproduct.GetProductsQuery;
+import com.adri.kids.inventory.application.querys.product.getproductbyid.GetProductByIdQuery;
+import com.adri.kids.inventory.application.querys.product.getproductsbycategoryid.GetProductsByCategoryIdQuery;
+import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.product.CreateProductRequest;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.product.ProductCardResponse;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.product.ProductDetailResponse;
 import com.adri.kids.inventory.infrastructure.adapter.in.mapper.ProductRestMapper;
@@ -23,7 +23,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 @RestController

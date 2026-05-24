@@ -1,6 +1,6 @@
 package com.adri.kids.inventory.infrastructure.adapter.in.dto.request;
 
-import com.adri.kids.inventory.application.command.createcolor.CreateColorCommand;
+import com.adri.kids.inventory.application.command.color.createcolor.CreateColorCommand;
 import com.adri.kids.inventory.domain.enums.InventoryStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

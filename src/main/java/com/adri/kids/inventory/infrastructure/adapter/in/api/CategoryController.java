@@ -4,14 +4,15 @@ import an.awesome.pipelinr.Pipeline;
 
 import com.adri.kids.inventory.application.command.category.activatecategory.ActivateCategoryCommand;
 import com.adri.kids.inventory.application.command.category.deletecategory.DeleteCategoryCommand;
-import com.adri.kids.inventory.application.querys.getcategories.GetCategoriesQuery;
-import com.adri.kids.inventory.application.querys.getcategoriesbyid.GetCategoryByIdQuery;
+import com.adri.kids.inventory.application.querys.category.getcategories.GetCategoriesQuery;
+import com.adri.kids.inventory.application.querys.category.getcategoriesbyid.GetCategoryByIdQuery;
 import com.adri.kids.inventory.application.command.category.deactivatecategory.DeactivateCategoryCommand;
-import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.CreateCategoryRequest;
-import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.UpdateCategoryRequest;
+import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.category.CreateCategoryRequest;
+import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.category.UpdateCategoryRequest;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.category.CategoryCardResponse;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.category.CategoryDetailResponse;
 import com.adri.kids.inventory.infrastructure.adapter.in.mapper.CategoryRestMapper;
+
 import com.adri.kids.shared.domain.dtos.ApiResponse;
 import com.adri.kids.shared.domain.dtos.PagedResult;
 

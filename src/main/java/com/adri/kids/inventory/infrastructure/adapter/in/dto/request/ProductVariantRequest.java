@@ -1,6 +1,6 @@
 package com.adri.kids.inventory.infrastructure.adapter.in.dto.request;
 
-import com.adri.kids.inventory.application.command.createproductvariant.CreateProductVariantCommand;
+import com.adri.kids.inventory.application.command.product.createproductvariant.CreateProductVariantCommand;
 import com.adri.kids.inventory.domain.enums.InventoryStatus;
 
 import java.math.BigDecimal;

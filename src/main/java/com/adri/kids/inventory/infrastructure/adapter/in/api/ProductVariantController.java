@@ -2,8 +2,8 @@ package com.adri.kids.inventory.infrastructure.adapter.in.api;
 
 import an.awesome.pipelinr.Pipeline;
 
-import com.adri.kids.inventory.application.querys.getproductvariants.GetProductVariantsQuery;
-import com.adri.kids.inventory.application.querys.getproductvariantsbyid.GetProductVariantByIdQuery;
+import com.adri.kids.inventory.application.querys.productvariant.getproductvariants.GetProductVariantsQuery;
+import com.adri.kids.inventory.application.querys.productvariant.getproductvariantsbyid.GetProductVariantByIdQuery;
 import com.adri.kids.inventory.application.command.incrementstockproductvariant.IncrementStockProductVariantCommand;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.ProductVariantRequest;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.productvariant.ProductVariantCardResponse;

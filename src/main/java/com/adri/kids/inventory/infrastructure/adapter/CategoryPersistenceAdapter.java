@@ -2,11 +2,12 @@ package com.adri.kids.inventory.infrastructure.adapter;
 
 import com.adri.kids.inventory.domain.model.Category;
 import com.adri.kids.inventory.domain.port.out.CategoryRepositoryPort;
-import com.adri.kids.inventory.infrastructure.adapter.out.persistence.entity.CategoryEntity;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.mapper.CategoryEntityMapper;
 import com.adri.kids.inventory.infrastructure.adapter.out.persistence.repository.CategoryJpaRepository;
 import com.adri.kids.shared.exceptions.NotFoundException;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -23,9 +24,10 @@ public class CategoryPersistenceAdapter implements CategoryRepositoryPort {
 
     @Override
     public Category save(Category category) {
-        CategoryEntity categoryEntity = categoryJpaRepository.save(categoryEntityMapper.toEntity(category));
+        var categoryEntity = categoryEntityMapper.toEntity(category);
+        var categorySaved = categoryJpaRepository.save(categoryEntity);
 
-        return categoryEntityMapper.toDomain(categoryEntity);
+        return categoryEntityMapper.toDomain(categorySaved);
     }
 
     @Override

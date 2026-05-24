@@ -1,7 +1,7 @@
 package com.adri.kids.inventory.infrastructure.adapter.listener;
 
-import com.adri.kids.inventory.application.command.getpriceforvariant.GetPriceForVariantIdAndStockCommand;
-import com.adri.kids.inventory.application.command.getpriceforvariant.GetPriceForVariantIdAndStockHandler;
+import com.adri.kids.inventory.application.command.productvariant.getpriceforvariant.GetPriceForVariantIdAndStockCommand;
+import com.adri.kids.inventory.application.command.productvariant.getpriceforvariant.GetPriceForVariantIdAndStockHandler;
 import com.adri.kids.shared.events.inventory.CheckStockAndPriceEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

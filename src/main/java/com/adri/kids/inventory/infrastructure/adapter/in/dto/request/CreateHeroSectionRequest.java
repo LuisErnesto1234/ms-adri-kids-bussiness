@@ -1,6 +1,6 @@
 package com.adri.kids.inventory.infrastructure.adapter.in.dto.request;
 
-import com.adri.kids.inventory.application.command.createheresection.CreateHeroSectionCommand;
+import com.adri.kids.inventory.application.command.herosection.createheresection.CreateHeroSectionCommand;
 import com.adri.kids.shared.domain.enums.GeneralStatus;
 
 import java.util.List;

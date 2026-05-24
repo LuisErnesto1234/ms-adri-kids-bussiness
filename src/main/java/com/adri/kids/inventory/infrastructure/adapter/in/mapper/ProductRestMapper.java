@@ -1,11 +1,11 @@
 package com.adri.kids.inventory.infrastructure.adapter.in.mapper;
 
-import com.adri.kids.inventory.application.command.createproduct.CreateProductCommand;
+import com.adri.kids.inventory.application.command.product.createproduct.CreateProductCommand;
 import com.adri.kids.inventory.domain.enums.InventoryStatus;
 import com.adri.kids.inventory.domain.model.Product;
 import com.adri.kids.inventory.domain.model.details.ProductDetails;
 import com.adri.kids.inventory.domain.model.details.ProductVariantDetails;
-import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.CreateProductRequest;
+import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.product.CreateProductRequest;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.product.ProductCardResponse;
 
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.product.ProductDetailResponse;

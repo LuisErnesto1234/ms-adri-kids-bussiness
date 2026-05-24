@@ -10,7 +10,6 @@ public record CreateCategoryCommand(String name,
                                     String urlImage,
                                     int numberOfOrder,
                                     String colorCode,
-                                    boolean isPublishImmediately,
                                     boolean isShowMainMenu)
         implements Command<Category> {
 

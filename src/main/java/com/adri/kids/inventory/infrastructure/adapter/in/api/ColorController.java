@@ -2,7 +2,7 @@ package com.adri.kids.inventory.infrastructure.adapter.in.api;
 
 import an.awesome.pipelinr.Pipeline;
 
-import com.adri.kids.inventory.application.querys.getcolors.GetColorsQuery;
+import com.adri.kids.inventory.application.querys.color.getcolors.GetColorsQuery;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.request.CreateColorRequest;
 import com.adri.kids.inventory.infrastructure.adapter.in.dto.response.color.ColorSummaryResponse;
 import com.adri.kids.inventory.infrastructure.adapter.in.mapper.ColorRestMapper;

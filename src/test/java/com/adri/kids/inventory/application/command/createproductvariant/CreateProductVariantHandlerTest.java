@@ -1,5 +1,7 @@
 package com.adri.kids.inventory.application.command.createproductvariant;
 
+import com.adri.kids.inventory.application.command.product.createproductvariant.CreateProductVariantCommand;
+import com.adri.kids.inventory.application.command.product.createproductvariant.CreateProductVariantHandler;
 import com.adri.kids.inventory.domain.enums.InventoryStatus;
 import com.adri.kids.inventory.domain.enums.TypeProduct;
 import com.adri.kids.inventory.domain.model.Color;

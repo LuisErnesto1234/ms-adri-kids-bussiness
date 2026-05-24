@@ -1,7 +1,7 @@
 package com.adri.kids.inventory.application.command.incrementstockproductvariant;
 
 import an.awesome.pipelinr.Command;
-import com.adri.kids.inventory.application.command.decrementproductvariantstock.DecrementStockProductVariantCommand;
+import com.adri.kids.inventory.application.command.productvariant.decrementproductvariantstock.DecrementStockProductVariantCommand;
 import com.adri.kids.inventory.domain.exception.NotFoundException;
 import com.adri.kids.inventory.domain.model.ProductVariant;
 import com.adri.kids.inventory.domain.port.out.ProductVariantRepositoryPort;

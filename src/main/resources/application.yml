@@ -30,6 +30,19 @@ spring:
   aop:
     auto: true
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 12MB
+
+aws:
+  s3:
+    bucket: ${AWS_S3_BUCKET}
+    region: ${AWS_S3_REGION:us-east-1}
+    public-base-url: ${AWS_S3_PUBLIC_BASE_URL}
+    access-key: ${AWS_ACCESS_KEY}
+    secret-key: ${AWS_SECRET_KEY}
+
 server:
   port: 8082
 

@@ -4,6 +4,7 @@ import com.adri.kids.shared.domain.dtos.ApiErrorResponse;
 import com.adri.kids.shared.domain.dtos.ApiResponse;
 
 import com.adri.kids.shared.exceptions.AlreadyExistException;
+import com.adri.kids.shared.exceptions.ImageProcessingException;
 import com.adri.kids.shared.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -98,5 +99,17 @@ public class GlobalExceptionHandler {
                 .build();
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(ImageProcessingException.class)
+    public ResponseEntity<ApiErrorResponse> handleImageProcessingException(ImageProcessingException ex) {
+        var errorResponse = ApiErrorResponse.builder()
+                .statusCode(HttpStatus.UNPROCESSABLE_ENTITY.value())
+                .timestamp(Instant.now())
+                .message("Error al procesar la imagen")
+                .details(List.of(ex.getMessage()))
+                .build();
+
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errorResponse);
     }
 }

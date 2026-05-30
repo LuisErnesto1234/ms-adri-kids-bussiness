@@ -1,5 +1,6 @@
 package com.adri.kids.catalog.domain.model;
 
+import com.adri.kids.product.domain.model.Product;
 import com.adri.kids.shared.domain.enums.GeneralStatus;
 
 import java.time.LocalDateTime;

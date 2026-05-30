@@ -4,8 +4,9 @@ import com.adri.kids.product.domain.model.ProductVariant;
 import com.adri.kids.product.domain.model.details.ProductDetails;
 import com.adri.kids.product.domain.model.details.ProductVariantDetails;
 import com.adri.kids.product.infrastructure.adapter.in.dto.response.ProductDetailResponse;
-import com.adri.kids.product.infrastructure.adapter.in.dto.responsevariant.ProductVariantCardResponse;
-import com.adri.kids.product.infrastructure.adapter.in.dto.responsevariant.ProductVariantDetailResponse;
+
+import com.adri.kids.product.infrastructure.adapter.in.dto.response.ProductVariantCardResponse;
+import com.adri.kids.product.infrastructure.adapter.in.dto.response.ProductVariantDetailResponse;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -3,7 +3,7 @@ package com.adri.kids.product.infrastructure.adapter.out.persistence;
 import com.adri.kids.product.domain.model.Product;
 import com.adri.kids.product.domain.model.details.ProductDetails;
 import com.adri.kids.product.domain.port.out.ProductRepositoryPort;
-import com.adri.kids.product.infrastructure.adapter.out.persistence.entity.ProductEntity;
+import com.adri.kids.product.ProductEntity;
 import com.adri.kids.product.infrastructure.adapter.out.persistence.mapper.ProductEntityMapper;
 import com.adri.kids.product.infrastructure.adapter.out.persistence.repository.ProductJpaRepository;
 

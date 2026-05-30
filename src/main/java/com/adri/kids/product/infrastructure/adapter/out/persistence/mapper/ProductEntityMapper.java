@@ -4,7 +4,7 @@ import com.adri.kids.product.domain.model.Product;
 import com.adri.kids.product.domain.model.details.ProductDetails;
 import com.adri.kids.product.domain.model.details.ProductVariantDetails;
 import com.adri.kids.catalog.infrastructure.adapter.out.persistence.entity.CategoryEntity;
-import com.adri.kids.product.infrastructure.adapter.out.persistence.entity.ProductEntity;
+import com.adri.kids.product.ProductEntity;
 import com.adri.kids.product.infrastructure.adapter.out.persistence.entity.ProductVariantEntity;
 
 import org.mapstruct.Mapper;

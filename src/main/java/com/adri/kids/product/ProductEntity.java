@@ -1,5 +1,7 @@
-package com.adri.kids.product.infrastructure.adapter.out.persistence.entity;
+package com.adri.kids.product;
 
+import com.adri.kids.catalog.infrastructure.adapter.out.persistence.entity.CategoryEntity;
+import com.adri.kids.product.infrastructure.adapter.out.persistence.entity.ProductVariantEntity;
 import com.adri.kids.shared.domain.enums.InventoryStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package com.adri.kids.product.domain.model.details;
 
-import com.adri.kids.shared.domain.enums.InventoryStatus;
 import com.adri.kids.catalog.domain.model.Category;
+import com.adri.kids.shared.domain.enums.InventoryStatus;
 
 import java.math.BigDecimal;
 import java.time.Instant;

@@ -3,7 +3,7 @@ package com.adri.kids.product.infrastructure.adapter.out.persistence.mapper;
 import com.adri.kids.product.domain.model.ProductVariant;
 import com.adri.kids.product.domain.model.details.ProductVariantDetails;
 import com.adri.kids.catalog.infrastructure.adapter.out.persistence.entity.ColorEntity;
-import com.adri.kids.product.infrastructure.adapter.out.persistence.entity.ProductEntity;
+import com.adri.kids.product.ProductEntity;
 import com.adri.kids.product.infrastructure.adapter.out.persistence.entity.ProductVariantEntity;
 import com.adri.kids.catalog.infrastructure.adapter.out.persistence.entity.SizeEntity;
 import org.mapstruct.Mapper;

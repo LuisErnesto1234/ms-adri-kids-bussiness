@@ -2,9 +2,10 @@ package com.adri.kids.product.infrastructure.adapter.in.api;
 
 import an.awesome.pipelinr.Pipeline;
 
+import com.adri.kids.product.application.product.query.GetProductByIdQuery;
+import com.adri.kids.product.application.product.query.GetProductsByCategoryIdQuery;
 import com.adri.kids.product.application.product.query.GetProductsQuery;
-import com.adri.kids.product.application.product.querybyid.GetProductByIdQuery;
-import com.adri.kids.product.application.product.querysbycategoryid.GetProductsByCategoryIdQuery;
+
 import com.adri.kids.product.infrastructure.adapter.in.dto.request.CreateProductRequest;
 import com.adri.kids.product.infrastructure.adapter.in.dto.response.ProductCardResponse;
 import com.adri.kids.product.infrastructure.adapter.in.dto.response.ProductDetailResponse;

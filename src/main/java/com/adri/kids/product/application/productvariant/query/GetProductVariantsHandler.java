@@ -3,7 +3,7 @@ package com.adri.kids.product.application.productvariant.query;
 import an.awesome.pipelinr.Command;
 
 import com.adri.kids.product.domain.port.out.ProductVariantRepositoryPort;
-import com.adri.kids.product.infrastructure.adapter.in.dto.responsevariant.ProductVariantCardResponse;
+import com.adri.kids.product.infrastructure.adapter.in.dto.response.ProductVariantCardResponse;
 import com.adri.kids.product.infrastructure.adapter.in.mapper.ProductVariantRestMapper;
 import com.adri.kids.shared.domain.dtos.PagedResult;
 

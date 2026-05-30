@@ -1,4 +1,4 @@
-package com.adri.kids.catalog;
+package com.adri.kids.catalog.infrastructure.adapter.out.persistence.entity;
 
 import com.adri.kids.product.ProductEntity;
 import com.adri.kids.shared.domain.enums.GeneralStatus;

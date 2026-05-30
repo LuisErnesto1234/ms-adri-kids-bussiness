@@ -34,3 +34,10 @@ build/
 
 .env
 /data
+
+### Terraform ###
+/infrastructure/.tfstate
+/infrastructure/.tfstate.backup
+/infrastructure/.terraform/**/
+/infrastructure/terraform.tfvars
+/infrastructure/terraform.tfvars.json

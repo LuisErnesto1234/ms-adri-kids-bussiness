@@ -3,8 +3,8 @@ package com.adri.kids.product.application.productvariant.query;
 import an.awesome.pipelinr.Command;
 
 import com.adri.kids.product.domain.port.out.ProductVariantRepositoryPort;
-import com.adri.kids.product.infrastructure.adapter.in.dto.responsevariant.ProductVariantDetailResponse;
 
+import com.adri.kids.product.infrastructure.adapter.in.dto.response.ProductVariantDetailResponse;
 import com.adri.kids.product.infrastructure.adapter.in.mapper.ProductVariantRestMapper;
 import lombok.RequiredArgsConstructor;
 

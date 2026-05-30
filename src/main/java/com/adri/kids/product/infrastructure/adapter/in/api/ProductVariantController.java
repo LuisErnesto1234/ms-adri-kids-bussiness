@@ -2,12 +2,12 @@ package com.adri.kids.product.infrastructure.adapter.in.api;
 
 import an.awesome.pipelinr.Pipeline;
 
+import com.adri.kids.product.application.productvariant.query.GetProductVariantByIdQuery;
 import com.adri.kids.product.application.productvariant.query.GetProductVariantsQuery;
-import com.adri.kids.product.application.productvariant.querybyid.GetProductVariantByIdQuery;
 import com.adri.kids.product.application.productvariant.command.IncrementStockProductVariantCommand;
 import com.adri.kids.product.infrastructure.adapter.in.dto.request.ProductVariantRequest;
-import com.adri.kids.product.infrastructure.adapter.in.dto.responsevariant.ProductVariantCardResponse;
-import com.adri.kids.product.infrastructure.adapter.in.dto.responsevariant.ProductVariantDetailResponse;
+import com.adri.kids.product.infrastructure.adapter.in.dto.response.ProductVariantCardResponse;
+import com.adri.kids.product.infrastructure.adapter.in.dto.response.ProductVariantDetailResponse;
 import com.adri.kids.product.infrastructure.adapter.in.mapper.ProductVariantRestMapper;
 import com.adri.kids.shared.domain.dtos.ApiResponse;
 import com.adri.kids.shared.domain.dtos.PagedResult;

@@ -3,7 +3,6 @@ package com.adri.kids.product.infrastructure.adapter.in.dto.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.adri.kids.shared.domain.enums.InventoryStatus;
-import com.adri.kids.product.infrastructure.adapter.in.dto.responsevariant.ProductVariantCardResponse;
 import lombok.Builder;
 import lombok.extern.jackson.Jacksonized;
 

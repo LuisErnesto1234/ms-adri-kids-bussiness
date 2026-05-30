@@ -1,6 +1,6 @@
 package com.adri.kids.product.infrastructure.adapter.out.persistence.repository;
 
-import com.adri.kids.product.infrastructure.adapter.out.persistence.entity.ProductEntity;
+import com.adri.kids.product.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

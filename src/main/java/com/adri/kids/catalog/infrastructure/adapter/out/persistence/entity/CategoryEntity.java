@@ -1,5 +1,6 @@
-package com.adri.kids.catalog.infrastructure.adapter.out.persistence.entity;
+package com.adri.kids.catalog;
 
+import com.adri.kids.product.ProductEntity;
 import com.adri.kids.shared.domain.enums.GeneralStatus;
 
 import jakarta.persistence.*;
